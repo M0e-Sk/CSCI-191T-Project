@@ -152,33 +152,25 @@ void _KbMs::keyPress(_Skybox2* sky)
 
 void _KbMs::keyPress(_Camera* cam)
 {
-	vec3 right;
-	right = cam->dir.cross(cam->upVec);
-	right.y = 0.0f;
-	vec3 fwd;
-	fwd = cam->dir;
-	fwd.y = 0.0f;
        switch(wParam)
     {
     case 	0x41:  // pressed key 'A'
-          cam->dir = cam->dir - right.norm();
-          cam->eye = cam->eye - right.norm();
+          cam->actionTrigger = cam->LEFT;
           break;
 
      case 0x44: // press key 'D'
-          cam->dir = cam->dir + right.norm();
-          cam->eye = cam->eye + right.norm();
+          cam->actionTrigger = cam->RIGHT;
           break;
 
           //todo
 
      case 0x53: // press key 'S'
-        cam->eye = cam->eye - fwd.norm();
+        cam->actionTrigger = cam->BACK;
         break;
 
      case 0x57:  // press key 'W'
 
-         cam->eye = cam->eye + fwd.norm();
+         cam->actionTrigger = cam->FORWARD;
          break;
 	 case VK_LEFT:
 		cam->thetaX += 0.5f;
@@ -223,6 +215,11 @@ void _KbMs::keyPress(_ModelLoaderMD2* MD2)
 void _KbMs::keyUp(_ModelLoaderMD2* MD2)
 {
     MD2->actionTrigger = MD2->STAND;
+}
+
+void _KbMs::keyUp(_Camera* cam)
+{
+	cam->actionTrigger = cam->IDLE;
 }
 
 

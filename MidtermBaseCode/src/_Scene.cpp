@@ -48,7 +48,7 @@ GLint _Scene::initGL()
 
      plx->parallaxInit("images/bck.jpeg");
      sky->skyBoxInit();
-     sky2->skyBoxinit("images/bk.jpg");
+     sky2->skyBoxinit("images/bk.png");
      cam->camInit();
      for(int i = 0; i < 20; i++)
 		b[i].initBullet("file");
@@ -113,11 +113,14 @@ GLint _Scene::drawScene()
         sky2->skyBoxDraw();
       glPopMatrix();
 
-      for(int i = 0; i < 5 && ufos[i].live; i++)
+      for(int i = 0; i < 5; i++)
 	  {
-		glPushMatrix();
-		ufos[i].Draw();
-		glPopMatrix();
+	  	if(ufos[i].live)
+		{
+			glPushMatrix();
+			ufos[i].Draw();
+			glPopMatrix();
+		}
 	  }
 
     return true;
@@ -179,6 +182,7 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     case WM_KEYUP:
          KbMs->wParam = wParam;
          KbMs->keyUp();
+        KbMs->keyUp(cam);
          break;
 
     case WM_LBUTTONDOWN:

@@ -28,6 +28,30 @@ void _Camera::setUpCam()
     dir.y = sin(thetaY*PI/180.0);
     dir.z = cos(thetaY*PI/180.0) * cos(thetaX*PI/180.0);
 
+    right = dir.cross(upVec);
+    right.y = 0;
+
+    vec3 fwd = dir;
+    fwd.y = 0;
+
+    switch(actionTrigger)
+    {
+	case FORWARD:
+		eye = eye + fwd;
+		break;
+	case BACK:
+		eye = eye - fwd;
+		break;
+	case LEFT:
+		eye = eye - right;
+		//dir = dir-right;
+		break;
+	case RIGHT:
+		eye = eye + right;
+		//dir = dir + right;
+		break;
+    }
+
 
    // setup camera with values
    vec3 des;

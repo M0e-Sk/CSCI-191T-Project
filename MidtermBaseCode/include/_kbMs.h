@@ -28,6 +28,7 @@ class _KbMs
         void keyUp();
         void keyUp(_2DPlayer*);
         void keyUp(_ModelLoaderMD2*);
+        void keyUp(_Camera*);
 
         void mouseEventDown(double, double);
         void mouseEventUp();

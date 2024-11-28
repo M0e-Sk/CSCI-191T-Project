@@ -265,3 +265,134 @@
 
 1668642808 d:\csci191t\common\include\soil.h
 
+1731915823 source:d:\csci191t\csci-191t-project\midtermbasecode\main.cpp
+	<windows.h>
+	<_Common.h>
+	<_Scene.h>
+
+1731723857 d:\csci191t\csci-191t-project\midtermbasecode\include\_common.h
+	<string.h>
+	<stdlib.h>
+	<iostream>
+	<windows.h>
+	<gl/gl.h>
+	<GL/glut.h>
+	<time.h>
+	<math.h>
+
+1731827538 d:\csci191t\csci-191t-project\midtermbasecode\include\_scene.h
+	<_Common.h>
+
+1729120779 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_2dplayer.cpp
+	"_2DPlayer.h"
+
+1728517295 d:\csci191t\csci-191t-project\midtermbasecode\include\_2dplayer.h
+	<_Common.h>
+	<_TextureLoader.h>
+	<_Timer.h>
+
+1726703348 d:\csci191t\csci-191t-project\midtermbasecode\include\_textureloader.h
+	<_Common.h>
+	<SOIL.h>
+
+1727307435 d:\csci191t\csci-191t-project\midtermbasecode\include\_timer.h
+	<_Common.h>
+
+1731909167 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_bullets.cpp
+	"_Bullets.h"
+
+1731826891 d:\csci191t\csci-191t-project\midtermbasecode\include\_bullets.h
+	<_Common.h>
+	<_TextureLoader.h>
+	<_Timer.h>
+
+1732830013 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_camera.cpp
+	"_Camera.h"
+
+1732829433 d:\csci191t\csci-191t-project\midtermbasecode\include\_camera.h
+	<_Common.h>
+
+1730332255 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_collision.cpp
+	"_Collision.h"
+
+1730332283 d:\csci191t\csci-191t-project\midtermbasecode\include\_collision.h
+	<_Common.h>
+
+1732829890 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_kbms.cpp
+	"_KbMs.h"
+
+1732829877 d:\csci191t\csci-191t-project\midtermbasecode\include\_kbms.h
+	<_Common.h>
+	<_Models.h>
+	<_parallax.h>
+	<_SkyBox.h>
+	<_Skybox2.h>
+	<_Camera.h>
+	<_2DPlayer.h>
+	<_ModelLoaderMD2.h>
+
+1730332987 d:\csci191t\csci-191t-project\midtermbasecode\include\_models.h
+	<_Common.h>
+	<_TextureLoader.h>
+	<_Timer.h>
+
+1727307517 d:\csci191t\csci-191t-project\midtermbasecode\include\_parallax.h
+	<_Common.h>
+	<_TextureLoader.h>
+	<_Timer.h>
+
+1727738318 d:\csci191t\csci-191t-project\midtermbasecode\include\_skybox.h
+	<_Common.h>
+	<_TextureLoader.h>
+
+1727911432 d:\csci191t\csci-191t-project\midtermbasecode\include\_skybox2.h
+	<_Common.h>
+	<_TextureLoader.h>
+	<_Timer.h>
+
+1731980209 d:\csci191t\csci-191t-project\midtermbasecode\include\_modelloadermd2.h
+	<_Common.h>
+	<_TextureLoader.h>
+	"Anorms.h"
+
+1730770383 d:\csci191t\csci-191t-project\midtermbasecode\include\anorms.h
+
+1725927104 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_lightsetup.cpp
+	"_lightSetup.h"
+
+1725925308 d:\csci191t\csci-191t-project\midtermbasecode\include\_lightsetup.h
+	<_Common.h>
+
+1731979175 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_modelloadermd2.cpp
+	"_ModelLoaderMD2.h"
+
+1730333024 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_models.cpp
+	"_Models.h"
+
+1727307671 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_parallax.cpp
+	"_parallax.h"
+
+1727742507 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_skybox.cpp
+	"_SkyBox.h"
+
+1728939603 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_skybox2.cpp
+	"_Skybox2.h"
+
+1727915650 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_textureloader.cpp
+	"_TextureLoader.h"
+
+1727307435 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_timer.cpp
+	"_Timer.h"
+
+1732830115 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_scene.cpp
+	"_Scene.h"
+	<_lightSetup.h>
+	<_kbMs.h>
+	<_parallax.h>
+	<_SkyBox.h>
+	<_Skybox2.h>
+	<_Camera.h>
+	<_Bullets.h>
+	<_ModelLoaderMD2.h>
+	<_Collision.h>
+

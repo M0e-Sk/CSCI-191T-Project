@@ -9,9 +9,12 @@ class _Camera
         _Camera();
         virtual ~_Camera();
 
+        enum {IDLE, FORWARD, BACK, LEFT, RIGHT};
+
         vec3 eye;
         vec3 dir;
         vec3 upVec;
+        vec3 right;
 
         float thetaX=180;
         float thetaY=0;
@@ -23,6 +26,8 @@ class _Camera
 
         void rotateXYP(vec3);
         void rotateUDP(vec3);
+
+        int actionTrigger = 0;
 
     protected:
 
