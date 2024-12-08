@@ -14,6 +14,8 @@ _KbMs::_KbMs()
     mouseRotation = false;
 
     firstMouse = true;
+
+    myTime->startTime = clock();
 }
 
 _KbMs::~_KbMs()
@@ -157,19 +159,15 @@ void _KbMs::keyPress(_Camera* cam)
     case 	0x41:  // pressed key 'A'
           cam->actionTrigger = cam->LEFT;
           break;
-
      case 0x44: // press key 'D'
           cam->actionTrigger = cam->RIGHT;
           break;
-
           //todo
 
      case 0x53: // press key 'S'
         cam->actionTrigger = cam->BACK;
         break;
-
      case 0x57:  // press key 'W'
-
          cam->actionTrigger = cam->FORWARD;
          break;
 	 case VK_LEFT:
@@ -220,6 +218,7 @@ void _KbMs::keyUp(_ModelLoaderMD2* MD2)
 void _KbMs::keyUp(_Camera* cam)
 {
 	cam->actionTrigger = cam->IDLE;
+	cam->mov = vec3{0,0,0};
 }
 
 
@@ -239,8 +238,8 @@ void _KbMs::mouseMove(_Skybox2*, double, double)
 
 void _KbMs::mouseEventDown(double x, double y)
 {
-    prev_MouseX =x;
-    prev_MouseY =y;
+    //prev_MouseX =x;
+    //prev_MouseY =y;
 
     switch(wParam)
     {
@@ -255,6 +254,7 @@ void _KbMs::mouseEventDown(double x, double y)
          break;
     }
 }
+
 
 void _KbMs::mouseEventUp()
 {
@@ -293,11 +293,25 @@ void _KbMs::mouseMove(_Camera* cam, double x, double y)
      cam->thetaX -=  ( x-prev_MouseX_Cam)/3.0;
      cam->thetaY -=  ( y-prev_MouseY_Cam)/3.0;
 
+     if(cam->thetaY > 25.0f) cam->thetaY = 25.0f;
+     if(cam->thetaY < -25.0f) cam->thetaY = -25.0f;
+
    // To do
    // apply for rotation
 
-      prev_MouseX_Cam = x;
-      prev_MouseY_Cam =y;
+      //prev_MouseX_Cam = x;
+      //prev_MouseY_Cam =y;
 	}
 }
 
+void _KbMs::mouseMove(_ModelLoaderMD2* gun, double x, double y)
+{
+	gun->dirAngleZ -= (x-prev_MouseX)/3.0f;
+	gun->dirAngleY += (y-prev_MouseY)/3.0f;
+	cout << gun->dirAngleY << endl;
+
+	if(gun->dirAngleY > 60.0f) gun->dirAngleY = 60.0f;
+	if(gun->dirAngleY < 10.0f) gun->dirAngleY = 10.0f;
+
+	//prev_MouseX = x;
+}

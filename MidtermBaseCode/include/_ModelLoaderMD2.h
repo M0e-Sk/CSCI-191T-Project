@@ -115,21 +115,22 @@ class _ModelLoaderMD2
           struct md2_glcmd_t *packet;
           struct md2_model_t md2file;
 
-          int ReadMD2Model (const char *filename, struct md2_model_t *mdl);
+          int ReadMD2Model (const char *filename, char *texname, struct md2_model_t *mdl);
           void RenderFrame (int n, const struct md2_model_t *mdl);
           void RenderFrameItpWithGLCmds (int n, float interp, const struct md2_model_t *mdl);
           void Animate (int start, int end, int *frame, float *interp);
-          void initModel(const char *filename, vec3);
+          void initModel(const char *filename, char* texname, vec3);
           void Draw();
           void FreeModel (struct md2_model_t *mdl);
           void actions();
 
 
-          enum {STAND,RUN,JUMP, ATTACK,SALUTE,WAVE,CRSTAND,DEATH};
+          enum {STAND,RUN,JUMP, ATTACK,SALUTE,WAVE,CRSTAND,DEATH,IDLE};
           int actionTrigger =0;
           int StartFrame =0;  // to control actions
           int EndFrame;       // to control actions
           float dirAngleZ =180;
+          float dirAngleY =0.0f;
           vec3 pos;
           float dir = -1.0f;
           bool live = true;

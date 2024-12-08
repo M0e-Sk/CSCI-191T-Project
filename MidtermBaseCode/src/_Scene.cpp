@@ -16,7 +16,8 @@ _SkyBox *sky = new _SkyBox();
 _Skybox2 *sky2 = new _Skybox2();
 _Camera *cam = new _Camera();
 _Bullets b[20];
-_ModelLoaderMD2 ufos[5] ;
+//_ModelLoaderMD2 ufos[5] ;
+_ModelLoaderMD2 *gun = new _ModelLoaderMD2();
 _Collision *col = new _Collision();
 
 
@@ -53,16 +54,12 @@ GLint _Scene::initGL()
      for(int i = 0; i < 20; i++)
 		b[i].initBullet("file");
 
-	 for(int i = 0; i < 5; i++)
-	 {
-		ufos[i].initModel("models/UFO/tris.md2",vec3{100.0f,100.0f,-100.0f});
-	 }
-
-	ufos[1].pos.x = -100.0f;
-	ufos[2].pos.x = 0;
-	ufos[3].pos.z = 0;
-	ufos[4].pos.x = -100.0f;
-	ufos[4].pos.z = 0;
+	gun->initModel("models/GIJOE/weapon.md2", "models/GIJOE/weapon.jpg", cam->eye);
+	gun->pos.y -= 1.0f;
+	gun->pos.z += 0.0f;
+	gun->dirAngleZ = 75.0f;
+	gun->dirAngleY = 35.0f;
+	gun->actionTrigger = gun->IDLE;
     return true;
 }
 
@@ -74,8 +71,8 @@ GLint _Scene::drawScene()
 
     wireFrame?glPolygonMode(GL_FRONT_AND_BACK, GL_LINE):glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
-
     cam->setUpCam();
+
 
       glPushMatrix();
       glTranslatef(0,-10,1);
@@ -91,7 +88,7 @@ GLint _Scene::drawScene()
       for(int i = 0; i < 20; i++)
       {
 		b[i].drawBullet();
-		for(int j = 0; j < 5 && b[i].live; j++)
+		/*for(int j = 0; j < 5 && b[i].live; j++)
 		{
 			vec3 pos;
 			pos.x = ufos[j].pos.x/10.0f;
@@ -103,9 +100,15 @@ GLint _Scene::drawScene()
 				ufos[j].live = false;
 				b[i].actionTrigger = b[i].DEAD;
 			}
-		}
+		}*/
 		b[i].bulletAction();
       }
+      glPopMatrix();
+
+      glPushMatrix();
+      gun->pos = cam->eye;
+      gun->actions();
+      gun->Draw();
       glPopMatrix();
 
       glPushMatrix();
@@ -113,15 +116,16 @@ GLint _Scene::drawScene()
         sky2->skyBoxDraw();
       glPopMatrix();
 
-      for(int i = 0; i < 5; i++)
+      /*for(int i = 0; i < 5; i++)
 	  {
 	  	if(ufos[i].live)
 		{
 			glPushMatrix();
+			ufos[i].actions();
 			ufos[i].Draw();
 			glPopMatrix();
 		}
-	  }
+	  }*/
 
     return true;
 }
@@ -177,16 +181,25 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
          //KbMs->keyPress(sky);
          //KbMs->keyPress(sky2);
          KbMs->keyPress(cam);
+         gun->actionTrigger = gun->RUN;
          break;
 
     case WM_KEYUP:
          KbMs->wParam = wParam;
          KbMs->keyUp();
         KbMs->keyUp(cam);
+        gun->actionTrigger = gun->IDLE;
          break;
 
     case WM_LBUTTONDOWN:
          KbMs->wParam = wParam;
+
+         if(gun->actionTrigger != gun->ATTACK)
+		 {
+         gun->actionTrigger = gun->ATTACK;
+         gun->dirAngleY -= 25;
+         gun->dirAngleZ += 25;
+		 }
 
          mouseMapping(LOWORD(lParam),HIWORD(lParam));
          KbMs->mouseEventDown(mouseX,mouseY);
@@ -212,7 +225,23 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_MOUSEMOVE:
          KbMs->wParam = wParam;
-         KbMs->mouseMove(cam, (double) LOWORD(lParam), (double) HIWORD(lParam));
+         if(KbMs->firstMouse)
+		 {
+		 	KbMs->prev_MouseX = (double) LOWORD(lParam);
+		 	KbMs->prev_MouseY = (double) HIWORD(lParam);
+		 	KbMs->prev_MouseX_Cam = (double) LOWORD(lParam);
+		 	KbMs->prev_MouseY_Cam = (double) HIWORD(lParam);
+		 	KbMs->firstMouse = false;
+		 }
+		 else
+		 {
+			KbMs->mouseMove(cam, (double) LOWORD(lParam), (double) HIWORD(lParam));
+			KbMs->mouseMove(gun, (double) LOWORD(lParam), (double) HIWORD(lParam));
+		 	KbMs->prev_MouseX = (double) LOWORD(lParam);
+		 	KbMs->prev_MouseY = (double) HIWORD(lParam);
+		 	KbMs->prev_MouseX_Cam = (double) LOWORD(lParam);
+		 	KbMs->prev_MouseY_Cam = (double) HIWORD(lParam);
+		 }
          break;
     case WM_MOUSEWHEEL:
 

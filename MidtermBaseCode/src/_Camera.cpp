@@ -13,12 +13,13 @@ _Camera::~_Camera()
 void _Camera::camInit()
 {
       // initialize camera values
-        eye.x= eye.y=0; eye.z =10.0;
+        eye.x=0.0f; eye.y=0; eye.z =10.0;
         dir.x=0;dir.y =0; dir.z =-1;
         upVec.x =upVec.z=0; upVec.y = 1.0;
 
         zoom = sqrt(pow(dir.x-eye.x,2)+pow(dir.y-eye.y,2)+pow(dir.z-eye.z,2));
 
+        myTime->startTime = clock();
 }
 
 void _Camera::setUpCam()
@@ -34,23 +35,28 @@ void _Camera::setUpCam()
     vec3 fwd = dir;
     fwd.y = 0;
 
+    //cout << mov.x << " " << mov.y << " " << mov.z << endl;
+    if(clock() - myTime->startTime > 60)
+	{
     switch(actionTrigger)
     {
 	case FORWARD:
-		eye = eye + fwd;
+		eye = eye + fwd.norm();
 		break;
 	case BACK:
-		eye = eye - fwd;
+		eye = eye - fwd.norm();
 		break;
 	case LEFT:
-		eye = eye - right;
+		eye = eye - right.norm();
 		//dir = dir-right;
 		break;
 	case RIGHT:
-		eye = eye + right;
+		eye = eye + right.norm();
 		//dir = dir + right;
 		break;
     }
+    myTime->startTime = clock();
+	}
 
 
    // setup camera with values

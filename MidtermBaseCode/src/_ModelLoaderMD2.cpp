@@ -52,7 +52,7 @@ void _ModelLoaderMD2::FreeModel(struct md2_model_t* mdl)
 }
 
 
-int _ModelLoaderMD2::ReadMD2Model(const char* filename, struct md2_model_t* mdl)
+int _ModelLoaderMD2::ReadMD2Model(const char* filename, char *texname,struct md2_model_t* mdl)
 {
    FILE *fp;
 
@@ -108,12 +108,12 @@ int _ModelLoaderMD2::ReadMD2Model(const char* filename, struct md2_model_t* mdl)
       fread (mdl->frames[i].name, sizeof (char), 16, fp);
       fread (mdl->frames[i].verts, sizeof (struct md2_vertex_t),mdl->header.num_vertices, fp);
 
-      //cout<<i<<"  "<< mdl->frames[i].name<<endl;
+      cout<<i<<"  "<< mdl->frames[i].name<<endl;
     }
 
     for(int i =0; i<mdl->header.num_skins; i++){
-        cout<<mdl->skins[i].name<<endl;
-       myTex->loadTexture("models/UFO/blue.png");
+        //cout<<mdl->skins[i].name<<endl;
+       myTex->loadTexture(texname);
         mdl->tex_id = myTex->tex;
     }
      EndFrame = 39;//mdl->header.num_frames-1;
@@ -170,7 +170,10 @@ void _ModelLoaderMD2::RenderFrameItpWithGLCmds(int n, float interp, const struct
 {
      /* Check if n is in a valid range */
   if ((n < 0) || (n > mdl->header.num_frames - 1))
+  {
+  	cout << "invalid textures for model" << endl;
     return;
+  }
 
   /* Enable model's texture */
   glBindTexture (GL_TEXTURE_2D, mdl->tex_id);
@@ -245,17 +248,26 @@ void _ModelLoaderMD2::Animate(int start, int end, int* frame, float* interp)
       (*frame)++;
 
       if (*frame >= end)
-	*frame = start;
+	  {
+	  	if(*frame == 53)
+		{
+			actionTrigger = IDLE;
+			dirAngleY += 25;
+			dirAngleZ -= 25;
+		}
+		else
+			*frame = start;
+	  }
     }
 }
 
-void _ModelLoaderMD2::initModel(const char* filename, vec3 position)
+void _ModelLoaderMD2::initModel(const char* filename, char *texname, vec3 position)
 {
      /* Load MD2 model file */
      //EndFrame = 9;
      pos = position;
 
-    if (!ReadMD2Model (filename, &md2file))
+    if (!ReadMD2Model (filename, texname, &md2file))
     exit (EXIT_FAILURE);
 }
 
@@ -274,14 +286,15 @@ void _ModelLoaderMD2::Draw()
   interp += 10 * (curent_time - last_time);
   Animate (StartFrame, EndFrame, &n, &interp);
 
-  glScalef(0.1,0.1,0.1);
   glTranslatef (pos.x, pos.y, pos.z);
   glRotatef (-90.0f, 1.0, 0.0, 0.0);
   glRotatef (dirAngleZ, 0.0, 0.0, 1.0);
+  glRotatef (dirAngleY, 0.0, 1.0, 0.0);
+  glScalef(0.1,0.1,0.1);
 
-  if(pos.y > 100 || pos.y < 5) dir = dir * -1.0f;
+  //if(pos.y > 100 || pos.y < 5) dir = dir * -1.0f;
 
-  pos.y -= 0.05f * dir;
+  //pos.y -= 0.05f * dir;
 
   /* Draw the model */
   // RenderFrame (n, &md2file);
@@ -297,11 +310,11 @@ void _ModelLoaderMD2::actions()
     {
    case STAND:
        StartFrame= 0;
-       EndFrame= 39;
+       EndFrame= 172;
     break;
    case RUN:
-       StartFrame= 40;
-       EndFrame= 45;
+       StartFrame= 154;
+       EndFrame= 159;
     break;
 
    case JUMP:
@@ -310,7 +323,8 @@ void _ModelLoaderMD2::actions()
     break;
    case ATTACK:
        StartFrame= 46;
-       EndFrame= 63;
+       EndFrame= 53;
+       pos.y -= 1.0;
     break;
    case SALUTE:
        StartFrame= 84;
@@ -327,6 +341,10 @@ void _ModelLoaderMD2::actions()
    case DEATH:
        StartFrame= 173;
        EndFrame= 197;
+       break;
+   case IDLE:
+		StartFrame=135;
+		EndFrame=153;
     break;
        break;
     }

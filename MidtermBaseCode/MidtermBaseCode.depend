@@ -306,11 +306,12 @@
 	<_TextureLoader.h>
 	<_Timer.h>
 
-1732830013 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_camera.cpp
+1733636780 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_camera.cpp
 	"_Camera.h"
 
-1732829433 d:\csci191t\csci-191t-project\midtermbasecode\include\_camera.h
+1733635665 d:\csci191t\csci-191t-project\midtermbasecode\include\_camera.h
 	<_Common.h>
+	<_Timer.h>
 
 1730332255 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_collision.cpp
 	"_Collision.h"
@@ -318,10 +319,10 @@
 1730332283 d:\csci191t\csci-191t-project\midtermbasecode\include\_collision.h
 	<_Common.h>
 
-1732829890 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_kbms.cpp
+1733638885 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_kbms.cpp
 	"_KbMs.h"
 
-1732829877 d:\csci191t\csci-191t-project\midtermbasecode\include\_kbms.h
+1733636169 d:\csci191t\csci-191t-project\midtermbasecode\include\_kbms.h
 	<_Common.h>
 	<_Models.h>
 	<_parallax.h>
@@ -330,6 +331,7 @@
 	<_Camera.h>
 	<_2DPlayer.h>
 	<_ModelLoaderMD2.h>
+	<_Timer.h>
 
 1730332987 d:\csci191t\csci-191t-project\midtermbasecode\include\_models.h
 	<_Common.h>
@@ -350,7 +352,7 @@
 	<_TextureLoader.h>
 	<_Timer.h>
 
-1731980209 d:\csci191t\csci-191t-project\midtermbasecode\include\_modelloadermd2.h
+1733638213 d:\csci191t\csci-191t-project\midtermbasecode\include\_modelloadermd2.h
 	<_Common.h>
 	<_TextureLoader.h>
 	"Anorms.h"
@@ -363,7 +365,7 @@
 1725925308 d:\csci191t\csci-191t-project\midtermbasecode\include\_lightsetup.h
 	<_Common.h>
 
-1731979175 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_modelloadermd2.cpp
+1733638266 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_modelloadermd2.cpp
 	"_ModelLoaderMD2.h"
 
 1730333024 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_models.cpp
@@ -384,7 +386,7 @@
 1727307435 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_timer.cpp
 	"_Timer.h"
 
-1732830115 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_scene.cpp
+1733638296 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_scene.cpp
 	"_Scene.h"
 	<_lightSetup.h>
 	<_kbMs.h>

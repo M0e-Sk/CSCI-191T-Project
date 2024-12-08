@@ -9,6 +9,7 @@
 #include<_Camera.h>
 #include<_2DPlayer.h>
 #include<_ModelLoaderMD2.h>
+#include<_Timer.h>
 
 class _KbMs
 {
@@ -39,6 +40,7 @@ class _KbMs
         void mouseMove(_Skybox2*, double, double);
 
         void mouseMove(_Camera*,double,double);
+        void mouseMove(_ModelLoaderMD2*, double, double);
 
         double prev_MouseX;
         double prev_MouseY;
@@ -49,6 +51,8 @@ class _KbMs
         bool mouseTranslation;
         bool mouseRotation;
         bool firstMouse = true;
+
+        _Timer *myTime = new _Timer();
 
     protected:
 
