@@ -20,6 +20,9 @@ _Bullets b[20];
 _ModelLoaderMD2 *gun = new _ModelLoaderMD2();
 _Collision *col = new _Collision();
 
+//temp target
+_Models* teapot = new _Models();
+
 
 _Scene::_Scene()
 {
@@ -60,6 +63,9 @@ GLint _Scene::initGL()
 	gun->dirAngleZ = 75.0f;
 	gun->dirAngleY = 35.0f;
 	gun->actionTrigger = gun->IDLE;
+
+
+	teapot->pos.y=1;
     return true;
 }
 
@@ -72,7 +78,9 @@ GLint _Scene::drawScene()
     wireFrame?glPolygonMode(GL_FRONT_AND_BACK, GL_LINE):glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     cam->setUpCam();
-
+    glPushMatrix();
+    teapot->drawModel();
+    glPopMatrix();
 
       glPushMatrix();
       glTranslatef(0,-10,1);
@@ -88,19 +96,19 @@ GLint _Scene::drawScene()
       for(int i = 0; i < 20; i++)
       {
 		b[i].drawBullet();
-		/*for(int j = 0; j < 5 && b[i].live; j++)
-		{
-			vec3 pos;
-			pos.x = ufos[j].pos.x/10.0f;
-			pos.y = ufos[j].pos.y/10.0f;
-			pos.z = ufos[j].pos.z/10.0f;
-			if(col->isSphereCollision(b[i].pos, pos, 0.5f, 1.5f, 0.2f) && ufos[j].live)
+		//for(int j = 0; j < 5 && b[i].live; j++)
+		//{
+			/*vec3 pos;
+			pos.x = teapot->pos.x/10.0f;
+			pos.y = teapot->pos.y/10.0f;
+			pos.z = teapot->pos.z/10.0f;*/
+			if(col->isSphereCollision(b[i].pos, teapot->pos, 0.3f, .4f, 0.5f)&& b[i].live)
 			{
-				cout << "HIT!" << endl;
-				ufos[j].live = false;
+                Score++;
+				cout << "HIT! " << Score <<endl;
 				b[i].actionTrigger = b[i].DEAD;
 			}
-		}*/
+		//}
 		b[i].bulletAction();
       }
       glPopMatrix();
@@ -116,7 +124,7 @@ GLint _Scene::drawScene()
         sky2->skyBoxDraw();
       glPopMatrix();
 
-      /*for(int i = 0; i < 5; i++)
+     /* for(int i = 0; i < 5; i++)
 	  {
 	  	if(ufos[i].live)
 		{

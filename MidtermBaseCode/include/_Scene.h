@@ -25,6 +25,7 @@ class _Scene
       GLdouble mouseZ;
       int mouseClicks =0;
       int curBullet = 0;
+      int Score;
     protected:
 
     private:
