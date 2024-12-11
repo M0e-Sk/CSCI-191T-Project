@@ -59,10 +59,15 @@ struct vec3
 		return {upX, upY, upZ};
 	}
 
+	float length()
+	{
+		return sqrt((x*x) + (y*y) + (z*z));
+	}
+
 	vec3 norm()
 	{
-		float length = sqrt((x*x) + (y*y) + (z*z));
-		return {x/length, y/length, z/length};
+		if(length() == 0) return {0,0,0};
+		return {x/length(), y/length(), z/length()};
 	}
 };
 

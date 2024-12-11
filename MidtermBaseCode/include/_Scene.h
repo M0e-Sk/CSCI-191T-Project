@@ -9,6 +9,9 @@ class _Scene
         _Scene();
         virtual ~_Scene();
         GLint initGL();          // initializing the scene
+        GLint loadLevel1();
+        GLint loadLevel2();
+        GLint loadLevel3();
         GLint drawScene();       //Render scene
         GLvoid resizeScene(GLsizei,GLsizei);// address window resize
         GLvoid mouseMapping(int, int);
@@ -26,9 +29,11 @@ class _Scene
       int mouseClicks =0;
       int curBullet = 0;
       int Score;
+      int currLevel;
+      int playerHealth = 10;
 
       bool menuBit = true;
-      bool pauseBit;
+      bool pauseBit = false;
     protected:
 
     private:

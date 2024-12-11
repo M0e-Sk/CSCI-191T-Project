@@ -108,7 +108,7 @@ int _ModelLoaderMD2::ReadMD2Model(const char* filename, char *texname,struct md2
       fread (mdl->frames[i].name, sizeof (char), 16, fp);
       fread (mdl->frames[i].verts, sizeof (struct md2_vertex_t),mdl->header.num_vertices, fp);
 
-      cout<<i<<"  "<< mdl->frames[i].name<<endl;
+      //cout<<i<<"  "<< mdl->frames[i].name<<endl;
     }
 
     for(int i =0; i<mdl->header.num_skins; i++){
@@ -116,7 +116,7 @@ int _ModelLoaderMD2::ReadMD2Model(const char* filename, char *texname,struct md2
        myTex->loadTexture(texname);
         mdl->tex_id = myTex->tex;
     }
-     EndFrame = 39;//mdl->header.num_frames-1;
+     mdl->header.num_frames-1;
 
   fclose (fp);
   return 1;
@@ -199,7 +199,7 @@ void _ModelLoaderMD2::RenderFrameItpWithGLCmds(int n, float interp, const struct
 	{
 	  packet = (struct md2_glcmd_t *)pglcmds;
 	  pframe1 = &mdl->frames[n];
-	  pframe2 = &mdl->frames[n + 1];
+	  (n != EndFrame) ? pframe2 = &mdl->frames[n + 1] : pframe2 = &mdl->frames[StartFrame];
 	  pvert1 = &pframe1->verts[packet->index];
 	  pvert2 = &pframe2->verts[packet->index];
 
@@ -249,7 +249,7 @@ void _ModelLoaderMD2::Animate(int start, int end, int* frame, float* interp)
 
       if (*frame >= end)
 	  {
-	  	if(*frame == 53)
+	  	if(actionTrigger == ATTACK)
 		{
 			actionTrigger = IDLE;
 			dirAngleY += 25;
@@ -272,25 +272,20 @@ void _ModelLoaderMD2::initModel(const char* filename, char *texname, vec3 positi
 }
 
 
-void _ModelLoaderMD2::Draw()
+void _ModelLoaderMD2::Draw(double curent_time, double last_time)
 {
-  static int n = 0; /* The current frame */
-  static float interp = 0.0;
-  static double curent_time = 0;
-  static double last_time = 0;
-
-  last_time = curent_time;
-  curent_time = (double)glutGet (GLUT_ELAPSED_TIME) / 1000.0;
+  //static int n = 0; /* The current frame */
+  //static float interp = 0.0;
 
   /* Animate model from frames 0 to num_frames-1 */
   interp += 10 * (curent_time - last_time);
-  Animate (StartFrame, EndFrame, &n, &interp);
+  Animate (StartFrame, EndFrame, &currFrame, &interp);
 
   glTranslatef (pos.x, pos.y, pos.z);
   glRotatef (-90.0f, 1.0, 0.0, 0.0);
   glRotatef (dirAngleZ, 0.0, 0.0, 1.0);
   glRotatef (dirAngleY, 0.0, 1.0, 0.0);
-  glScalef(0.1,0.1,0.1);
+  glScalef(scale,scale,scale);
 
   //if(pos.y > 100 || pos.y < 5) dir = dir * -1.0f;
 
@@ -301,7 +296,7 @@ void _ModelLoaderMD2::Draw()
   // RenderFrameWithGLCmds (n, &md2file);
   //RenderFrameItp (n, interp, &md2file);
 
-   RenderFrameItpWithGLCmds (n, interp, &md2file);
+   RenderFrameItpWithGLCmds (currFrame, interp, &md2file);
 }
 
 void _ModelLoaderMD2::actions()

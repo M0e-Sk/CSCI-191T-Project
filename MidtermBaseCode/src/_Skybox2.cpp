@@ -18,7 +18,8 @@ void _Skybox2::skyBoxinit(char* fileName)
     scale.z =200;
 
     rot.x=rot.y=rot.z = 0;
-    trans.x=trans.y=trans.z =0;
+    trans.x=trans.z =0;
+    trans.y = 40.0f;
 
     tMax.x=tMax.y =1.0;
     tMin.x=tMin.y =0.0;

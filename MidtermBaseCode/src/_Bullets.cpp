@@ -15,7 +15,7 @@ void _Bullets::initBullet(char* fileName)
    pos.y =0;
    pos.z =0;
    t=0;
-   lifetime = 1.0f;
+   lifetime = 100.0f;
 
    des.x =0;
    des.y = 20;
@@ -27,7 +27,7 @@ void _Bullets::initBullet(char* fileName)
 
    actionTrigger = READY;
 
-   speed = 3.0f;
+   speed = 0.5f;
 
    live =false;
 }
@@ -39,7 +39,7 @@ void _Bullets::drawBullet()
      if(live)
      {
      glTranslatef(pos.x,pos.y,pos.z);
-     glutSolidSphere(0.5,20,20);
+     glutSolidSphere(0.1,20,20);
      }
      glPopMatrix();
      glEnable(GL_TEXTURE_2D);
@@ -69,9 +69,9 @@ void _Bullets::bulletAction()
         case SHOOT:
               if(live)
               {
-              if(clock()-myTime->startTime>70)
+              if(clock()-myTime->startTime>10)
               {
-              if(t>=1) {actionTrigger = DEAD;}
+              if(t>=lifetime) {actionTrigger = DEAD;}
               else
 			  {
 				pos = pos + (des.norm() * speed);

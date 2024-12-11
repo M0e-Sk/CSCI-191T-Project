@@ -8,23 +8,32 @@
 #include<_Bullets.h>
 #include<_ModelLoaderMD2.h>
 #include<_Collision.h>
+#include<_models.h>
+#include<_Enemy.h>
+#include<_Runner.h>
+#include<_Blitzer.h>
+#include<_Boss.h>
 #include<_Menu.h>
 
 _lightSetup *myLight = new _lightSetup();
 _KbMs *KbMs = new _KbMs();
+_parallax *aplx;
 _parallax *plx = new _parallax();
-_SkyBox *sky = new _SkyBox();
+_parallax *plx2 = new _parallax();
+_parallax *plx3 = new _parallax();
+_Skybox2 *asky;
+_Skybox2 *sky = new _Skybox2();
 _Skybox2 *sky2 = new _Skybox2();
+_Skybox2 *sky3 = new _Skybox2();
 _Camera *cam = new _Camera();
 _Bullets b[20];
-//_ModelLoaderMD2 ufos[5] ;
 _ModelLoaderMD2 *gun = new _ModelLoaderMD2();
 _Collision *col = new _Collision();
+_Enemy* e[5];
 _Menu *mainMenu = new _Menu();
+_Menu *pauseMenu = new _Menu();
 
-//temp target
-_Models* teapot = new _Models();
-
+int maxEnemies;
 
 _Scene::_Scene()
 {
@@ -52,24 +61,121 @@ GLint _Scene::initGL()
 
      glEnable(GL_TEXTURE_2D);  //enable textures
 
-     plx->parallaxInit("images/bck.jpeg");
-     sky->skyBoxInit();
-     sky2->skyBoxinit("images/bk.png");
+     plx->parallaxInit("images/forestfloor.jpg");
+     plx2->parallaxInit("images/mansionfloor.jpg");
+     plx3->parallaxInit("images/cellarfloor.jpg");
+     sky->skyBoxinit("images/forest.png");
+     sky2->skyBoxinit("images/mansion.png");
+     sky3->skyBoxinit("images/cellar.png");
      cam->camInit();
      for(int i = 0; i < 20; i++)
 		b[i].initBullet("file");
 
 	gun->initModel("models/GIJOE/weapon.md2", "models/GIJOE/weapon.jpg", cam->eye);
 	gun->pos.y -= 1.0f;
-	gun->pos.z += 0.0f;
+	gun->dirAngleZ = 75.0f;
+	gun->dirAngleY = 35.0f;
+	gun->scale = 0.08f;
+	gun->actionTrigger = gun->IDLE;
+
+	maxEnemies = 3;
+    mainMenu->initMenu("images/startMenu.png");
+    //pauseMenu->initMenu("images/");
+    return true;
+}
+
+GLint _Scene::loadLevel1()
+{
+	asky = sky;
+	aplx = plx;
+	maxEnemies = 3;
+	cam->camInit();
+	for(int i = 0; i < maxEnemies; i++)
+	{
+	e[i] = new _Runner();
+	float x = (rand() % 40) - 20;
+	float z = (rand() % 40) - 20;
+	if(x <= 10.0f && x >= -10.0f) x > 0.0f ? x = 10.0f : x = -10.0f;
+	if(z <= 10.0f && z >= -10.0f) z > 0.0f ? z = 10.0f : z = -10.0f;
+	e[i]->init("models/corpse/tris.md2", "models/corpse/base.jpg", vec3{x, 0.0f, z});
+	e[i]->des = e[i]->model->pos;
+	e[i]->dir = vec3{-0.5f,0.0f,-0.5f};
+	e[i]->model->dirAngleZ = acos(e[i]->dir.dot(vec3{1.0f,0.0f,0.0f})) * (180.0f/PI);
+	if(e[i]->dir.z > 0.0f) e[i]->model->dirAngleZ = 360 - e[i]->model->dirAngleZ;
+	e[i]->plPos = cam->eye;
+	}
+	gun->pos.y = cam->eye.y - 1.0f;
 	gun->dirAngleZ = 75.0f;
 	gun->dirAngleY = 35.0f;
 	gun->actionTrigger = gun->IDLE;
+	currLevel =1;
+	return true;
+}
 
-    mainMenu->initMenu("images/startMenu.png");
+GLint _Scene::loadLevel2()
+{
+	asky = sky2;
+	aplx = plx2;
+	cam->camInit();
+	for(int i = 0; i < maxEnemies; i++)
+	{
+		delete e[i];
+	}
+	maxEnemies =5;
+	for(int i = 0; i < 4; i++)
+	{
+		e[i] = new _Runner();
+		float x = (rand() % 40) - 20;
+		float z = (rand() % 40) - 20;
+		if(x <= 10.0f && x >= -10.0f) x > 0.0f ? x = 10.0f : x = -10.0f;
+		if(z <= 10.0f && z >= -10.0f) z > 0.0f ? z = 10.0f : z = -10.0f;
+		e[i]->init("models/corpse/tris.md2", "models/corpse/base.jpg", vec3{x, 0.0f, z});
+		e[i]->des = vec3{0.0f, 0.0f, 5.0f};
+		e[i]->dir = vec3{-0.5f,0.0f,-0.5f};
+		e[i]->model->dirAngleZ = acos(e[i]->dir.dot(vec3{1.0f,0.0f,0.0f})) * (180.0f/PI);
+		if(e[i]->dir.z > 0.0f) e[i]->model->dirAngleZ = 360 - e[i]->model->dirAngleZ;
+		e[i]->plPos = cam->eye;
+	}
+	for(int i = 4; i < maxEnemies; i++)
+	{
+		e[i] = new _Blitzer();
+		float x = (rand() % 40) - 20;
+		float z = (rand() % 40) - 20;
+		if(x <= 10.0f && x >= -10.0f) x > 0.0f ? x = 10.0f : x = -10.0f;
+		if(z <= 10.0f && z >= -10.0f) z > 0.0f ? z = 10.0f : z = -10.0f;
+		e[i]->init("models/wraith/tris.md2", "models/wraith/WRAITH.jpg", vec3{x, 0.0f, z});
+		e[i]->plPos = cam->eye;
+		e[i]->dir = (cam->eye - e[i]->model->pos).norm();
+		e[i]->des = cam->eye - e[i]->dir;
+		e[i]->model->dirAngleZ = acos(e[i]->dir.dot(vec3{1.0f,0.0f,0.0f})) * (180.0f/PI);
+		if(e[i]->dir.z > 0.0f) e[i]->model->dirAngleZ = 360 - e[i]->model->dirAngleZ;
+	}
+	gun->pos.y = cam->eye.y - 1.0f;
+	gun->dirAngleZ = 75.0f;
+	gun->dirAngleY = 35.0f;
+	gun->actionTrigger = gun->IDLE;
+	currLevel = 2;
+	return true;
+}
 
-	teapot->pos.y=1;
-    return true;
+GLint _Scene::loadLevel3()
+{
+	asky = sky3;
+	aplx = plx3;
+	for(int i = 0; i < maxEnemies; i++)
+	{
+		delete e[i];
+	}
+	maxEnemies = 1;
+	cam->camInit();
+	e[0] = new _Boss();
+	e[0]->init("models/doomunls/tris.md2", "models/doomunls/red.jpg", vec3{0.0f, 3.0f, -30.0f});
+	gun->pos.y = cam->eye.y - 1.0f;
+	gun->dirAngleZ = 75.0f;
+	gun->dirAngleY = 35.0f;
+	gun->actionTrigger = gun->IDLE;
+	currLevel = 3;
+	return true;
 }
 
 GLint _Scene::drawScene()
@@ -80,6 +186,12 @@ GLint _Scene::drawScene()
 
     wireFrame?glPolygonMode(GL_FRONT_AND_BACK, GL_LINE):glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
+	static double curent_time = 0;
+	static double last_time = 0;
+
+	last_time = curent_time;
+	curent_time = (double)glutGet (GLUT_ELAPSED_TIME) / 1000.0;
+
     cam->setUpCam();
     if(mainMenu->menuActive) //menu draw
     {
@@ -87,65 +199,95 @@ GLint _Scene::drawScene()
         mainMenu->drawMenu();
     }
     else{//levels draw
+			if(pauseBit)
+			{
+
+			}else {
     ShowCursor(FALSE);
     glPushMatrix();
-    teapot->drawModel();
     glPopMatrix();
 
       glPushMatrix();
       glTranslatef(0,-10,1);
       glRotatef(90,1,0,0);
 
-      glScalef(100,50,1.0);
-   // plx->parallaxScroll(true,"left",0.005);
-      plx->parallaxDraw(screenWidth,screenHeight);
+      glScalef(200,200,1.0);
+      aplx->parallaxDraw(1,1);
 
       glPopMatrix();
 
-      glPushMatrix();
       for(int i = 0; i < 20; i++)
       {
 		b[i].drawBullet();
-		//for(int j = 0; j < 5 && b[i].live; j++)
-		//{
-			/*vec3 pos;
-			pos.x = teapot->pos.x/10.0f;
-			pos.y = teapot->pos.y/10.0f;
-			pos.z = teapot->pos.z/10.0f;*/
-			if(col->isCubicCollision(b[i].pos, teapot->pos, 1,1,1,1,1,1)&& b[i].live)
+		for(int j = 0; j < maxEnemies; j++){
+			if(col->isCubicCollision(e[j]->model->pos, b[i].pos, e[j]->width, 0.1f,e[j]->height, 0.1f, e[j]->depth, 0.1f) && b[i].live)
 			{
-                Score++;
-				cout << "HIT! " << Score <<endl;
+				if(e[j]->live) {
+				e[j]->health -= 1;
+				if(e[j]->health <= 0)
+				{
+					e[j]->behavior = e[j]->DYING;
+				}
+				else {
+					if(e[j]->behavior == e[j]->TAUNT)
+					{
+						e[j]->stunCnt++;
+					}else if(currLevel !=3){
+					e[j]->behavior = e[j]->HURT;
+					e[j]->dir = (e[j]->model->pos - e[j]->plPos).norm();
+					}
+				}
 				b[i].actionTrigger = b[i].DEAD;
+				}
 			}
-		//}
+		}
 		b[i].bulletAction();
       }
-      glPopMatrix();
 
       glPushMatrix();
       gun->pos = cam->eye;
       gun->actions();
-      gun->Draw();
+      gun->Draw(curent_time, last_time);
       glPopMatrix();
+
+      for(int i = 0; i < maxEnemies; i++) {
+      glPushMatrix();
+      e[i]->plPos = cam->eye;
+      e[i]->Actions(&playerHealth);
+      e[i]->Draw(curent_time, last_time);
+      glPopMatrix();
+      }
 
       glPushMatrix();
-  //    sky->drawSkyBox();
-        sky2->skyBoxDraw();
+		asky->skyBoxDraw();
       glPopMatrix();
 
-     /* for(int i = 0; i < 5; i++)
+	  int enemiesLeft = maxEnemies;
+	  for(int i = 0; i < maxEnemies; i++)
 	  {
-	  	if(ufos[i].live)
-		{
-			glPushMatrix();
-			ufos[i].actions();
-			ufos[i].Draw();
-			glPopMatrix();
-		}
-	  }*/
+	  	e[i]->live ? NULL : enemiesLeft--;
+	  }
+	  if(enemiesLeft <= 0)
+	  {
+	  	switch(currLevel)
+	  	{
+		case 1:
+			loadLevel2();
+			break;
+		case 2:
+			loadLevel3();
+			break;
+		case 3:
+			delete e[0];
+			mainMenu->menuActive = true;
+			pauseBit = true;
+			cam->camInit();
+			glDisable(GL_LIGHTING);
+	  	}
+	  }
 
     }//else statement ends
+    }
     return true;
 }
 
@@ -200,6 +342,11 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
          //KbMs->keyPress(sky);
          //KbMs->keyPress(sky2);
          KbMs->keyPress(cam);
+         if(gun->actionTrigger == gun->ATTACK)
+		 {
+			gun->dirAngleY += 25;
+			gun->dirAngleZ -= 25;
+		 }
          gun->actionTrigger = gun->RUN;
          break;
 
@@ -207,6 +354,11 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
          KbMs->wParam = wParam;
          KbMs->keyUp();
         KbMs->keyUp(cam);
+         if(gun->actionTrigger == gun->ATTACK)
+		 {
+			gun->dirAngleY += 25;
+			gun->dirAngleZ -= 25;
+		 }
         gun->actionTrigger = gun->IDLE;
          break;
 
@@ -223,6 +375,7 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
          mouseMapping(LOWORD(lParam),HIWORD(lParam));
          if(mainMenu->menuActive){
           KbMs->mouseEventDown(mainMenu,mouseX,mouseY);
+          if(!mainMenu->menuActive) loadLevel1();
          }
          KbMs->mouseEventDown(mouseX,mouseY);
 

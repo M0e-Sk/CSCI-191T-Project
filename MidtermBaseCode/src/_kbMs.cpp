@@ -176,12 +176,20 @@ void _KbMs::keyPress(_Camera* cam)
 	 case VK_RIGHT:
 		cam->thetaX -= 0.5f;
 		break;
+	 case VK_SPACE:
+		cout << cam->eye.x << " " << cam->eye.y << " " << cam->eye.z << endl;
+		break;
     }
 
 }
 
 void _KbMs::keyPress(_ModelLoaderMD2* MD2)
 {
+	if(MD2->actionTrigger == MD2->ATTACK){
+
+			MD2->dirAngleY += 25;
+			MD2->dirAngleZ -= 25;
+	}
      switch(wParam)
     {
     case VK_LEFT:
@@ -212,6 +220,12 @@ void _KbMs::keyPress(_ModelLoaderMD2* MD2)
 }
 void _KbMs::keyUp(_ModelLoaderMD2* MD2)
 {
+	if(MD2->actionTrigger == MD2->ATTACK)
+	{
+
+			MD2->dirAngleY += 25;
+			MD2->dirAngleZ -= 25;
+	}
     MD2->actionTrigger = MD2->STAND;
 }
 
@@ -308,7 +322,6 @@ void _KbMs::mouseMove(_ModelLoaderMD2* gun, double x, double y)
 {
 	gun->dirAngleZ -= (x-prev_MouseX)/3.0f;
 	gun->dirAngleY += (y-prev_MouseY)/3.0f;
-//	cout << gun->dirAngleY << endl;
 
 	if(gun->dirAngleY > 60.0f) gun->dirAngleY = 60.0f;
 	if(gun->dirAngleY < 10.0f) gun->dirAngleY = 10.0f;

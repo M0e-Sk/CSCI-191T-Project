@@ -120,7 +120,7 @@ class _ModelLoaderMD2
           void RenderFrameItpWithGLCmds (int n, float interp, const struct md2_model_t *mdl);
           void Animate (int start, int end, int *frame, float *interp);
           void initModel(const char *filename, char* texname, vec3);
-          void Draw();
+          void Draw(double, double);
           void FreeModel (struct md2_model_t *mdl);
           void actions();
 
@@ -129,8 +129,11 @@ class _ModelLoaderMD2
           int actionTrigger =0;
           int StartFrame =0;  // to control actions
           int EndFrame;       // to control actions
+          int currFrame = 0;
+          float interp;
           float dirAngleZ =180;
           float dirAngleY =0.0f;
+          float scale;
           vec3 pos;
           float dir = -1.0f;
           bool live = true;

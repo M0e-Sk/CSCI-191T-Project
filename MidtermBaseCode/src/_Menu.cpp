@@ -18,6 +18,7 @@ void _Menu::initMenu(char* fileName)
 
 void _Menu::drawMenu()
 {
+	mainMenu->bindTexture();
     glBegin(GL_QUADS);
      glTexCoord2f(0,0);glVertex3f(-5.0,5.0,1.0);
      glTexCoord2f(1,0);glVertex3f( 5.0,5.0,1.0);

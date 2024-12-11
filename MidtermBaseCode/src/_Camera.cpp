@@ -17,6 +17,9 @@ void _Camera::camInit()
         dir.x=0;dir.y =0; dir.z =-1;
         upVec.x =upVec.z=0; upVec.y = 1.0;
 
+        thetaX = 180.0f;
+        thetaY = 0.0f;
+
         zoom = sqrt(pow(dir.x-eye.x,2)+pow(dir.y-eye.y,2)+pow(dir.z-eye.z,2));
 
         myTime->startTime = clock();
@@ -56,7 +59,12 @@ void _Camera::setUpCam()
 		break;
     }
     myTime->startTime = clock();
+    //cout << eye.x << " " << eye.y << " " << eye.z << endl;
 	}
+	if(eye.x > 200.0f) eye.x = 198.0f;
+	if(eye.x < -200.0f) eye.x = -198.0f;
+	if(eye.z > 200.0f) eye.z = 198.0f;
+	if(eye.z < -200.0f) eye.z = -198.0f;
 
 
    // setup camera with values
