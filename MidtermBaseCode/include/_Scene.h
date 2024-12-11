@@ -26,6 +26,9 @@ class _Scene
       int mouseClicks =0;
       int curBullet = 0;
       int Score;
+
+      bool menuBit = true;
+      bool pauseBit;
     protected:
 
     private:

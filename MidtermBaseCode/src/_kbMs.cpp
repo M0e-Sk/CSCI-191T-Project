@@ -308,10 +308,20 @@ void _KbMs::mouseMove(_ModelLoaderMD2* gun, double x, double y)
 {
 	gun->dirAngleZ -= (x-prev_MouseX)/3.0f;
 	gun->dirAngleY += (y-prev_MouseY)/3.0f;
-	cout << gun->dirAngleY << endl;
+//	cout << gun->dirAngleY << endl;
 
 	if(gun->dirAngleY > 60.0f) gun->dirAngleY = 60.0f;
 	if(gun->dirAngleY < 10.0f) gun->dirAngleY = 10.0f;
 
 	//prev_MouseX = x;
 }
+
+void _KbMs::mouseEventDown(_Menu* menu, double x, double y)
+{
+    cout <<x<<" "<<y<<endl;
+    if(menu->menuActive&&x>-.7511&&x<.8769&&y>-.5135&&y<.6743){
+        menu->menuActive=false;
+        cout <<"done";
+    }
+}
+

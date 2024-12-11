@@ -8,6 +8,7 @@
 #include<_Bullets.h>
 #include<_ModelLoaderMD2.h>
 #include<_Collision.h>
+#include<_Menu.h>
 
 _lightSetup *myLight = new _lightSetup();
 _KbMs *KbMs = new _KbMs();
@@ -19,6 +20,7 @@ _Bullets b[20];
 //_ModelLoaderMD2 ufos[5] ;
 _ModelLoaderMD2 *gun = new _ModelLoaderMD2();
 _Collision *col = new _Collision();
+_Menu *mainMenu = new _Menu();
 
 //temp target
 _Models* teapot = new _Models();
@@ -64,6 +66,7 @@ GLint _Scene::initGL()
 	gun->dirAngleY = 35.0f;
 	gun->actionTrigger = gun->IDLE;
 
+    mainMenu->initMenu("images/startMenu.png");
 
 	teapot->pos.y=1;
     return true;
@@ -78,6 +81,13 @@ GLint _Scene::drawScene()
     wireFrame?glPolygonMode(GL_FRONT_AND_BACK, GL_LINE):glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
     cam->setUpCam();
+    if(mainMenu->menuActive) //menu draw
+    {
+        ShowCursor(TRUE);
+        mainMenu->drawMenu();
+    }
+    else{//levels draw
+    ShowCursor(FALSE);
     glPushMatrix();
     teapot->drawModel();
     glPopMatrix();
@@ -102,7 +112,7 @@ GLint _Scene::drawScene()
 			pos.x = teapot->pos.x/10.0f;
 			pos.y = teapot->pos.y/10.0f;
 			pos.z = teapot->pos.z/10.0f;*/
-			if(col->isSphereCollision(b[i].pos, teapot->pos, 0.3f, .4f, 0.5f)&& b[i].live)
+			if(col->isCubicCollision(b[i].pos, teapot->pos, 1,1,1,1,1,1)&& b[i].live)
 			{
                 Score++;
 				cout << "HIT! " << Score <<endl;
@@ -135,6 +145,7 @@ GLint _Scene::drawScene()
 		}
 	  }*/
 
+    }//else statement ends
     return true;
 }
 
@@ -210,6 +221,9 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		 }
 
          mouseMapping(LOWORD(lParam),HIWORD(lParam));
+         if(mainMenu->menuActive){
+          KbMs->mouseEventDown(mainMenu,mouseX,mouseY);
+         }
          KbMs->mouseEventDown(mouseX,mouseY);
 
 		b[curBullet].actionTrigger = b[curBullet].SHOOT;
@@ -233,6 +247,7 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_MOUSEMOVE:
          KbMs->wParam = wParam;
+         if(!mainMenu->menuActive){//only move camera if menu isn't active
          if(KbMs->firstMouse)
 		 {
 		 	KbMs->prev_MouseX = (double) LOWORD(lParam);
@@ -249,6 +264,7 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		 	KbMs->prev_MouseY = (double) HIWORD(lParam);
 		 	KbMs->prev_MouseX_Cam = (double) LOWORD(lParam);
 		 	KbMs->prev_MouseY_Cam = (double) HIWORD(lParam);
+		 }
 		 }
          break;
     case WM_MOUSEWHEEL:

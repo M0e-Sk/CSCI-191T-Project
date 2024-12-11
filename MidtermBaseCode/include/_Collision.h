@@ -12,7 +12,7 @@ class _Collision
         bool isRadialCollision(vec3,vec3,float,float,float);
         bool isHitPlane(vec2,vec2);
 
-        bool isCubicCollision(vec3,vec3);
+        bool isCubicCollision(vec3,vec3,float,float,float,float,float,float);
         bool isSphereCollision(vec3,vec3,float,float,float);
         bool isHitplanr3D(vec3,vec3);
 

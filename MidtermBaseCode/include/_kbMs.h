@@ -10,6 +10,7 @@
 #include<_2DPlayer.h>
 #include<_ModelLoaderMD2.h>
 #include<_Timer.h>
+#include<_Menu.h>
 
 class _KbMs
 {
@@ -32,6 +33,7 @@ class _KbMs
         void keyUp(_Camera*);
 
         void mouseEventDown(double, double);
+        void mouseEventDown(_Menu*,double, double);
         void mouseEventUp();
 
         void mouseWheel(_Models*,double);
