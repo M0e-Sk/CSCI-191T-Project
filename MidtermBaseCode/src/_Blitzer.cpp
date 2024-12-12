@@ -49,7 +49,7 @@ void _Blitzer::Actions(int* plHealth)
 				if(dir.z > 0.0f) model->dirAngleZ = 360 - model->dirAngleZ;
 				if(col->isCubicCollision(model->pos + dir, plPos, 0.5f, 0.5, 0.5f, 0.5f, 0.5f, 0.5f))
 				{
-					plHealth --;
+					(*plHealth)--;
 				}
 			}
 			break;

@@ -176,20 +176,12 @@ void _KbMs::keyPress(_Camera* cam)
 	 case VK_RIGHT:
 		cam->thetaX -= 0.5f;
 		break;
-	 case VK_SPACE:
-		cout << cam->eye.x << " " << cam->eye.y << " " << cam->eye.z << endl;
-		break;
     }
 
 }
 
 void _KbMs::keyPress(_ModelLoaderMD2* MD2)
 {
-	if(MD2->actionTrigger == MD2->ATTACK){
-
-			MD2->dirAngleY += 25;
-			MD2->dirAngleZ -= 25;
-	}
      switch(wParam)
     {
     case VK_LEFT:
@@ -220,12 +212,6 @@ void _KbMs::keyPress(_ModelLoaderMD2* MD2)
 }
 void _KbMs::keyUp(_ModelLoaderMD2* MD2)
 {
-	if(MD2->actionTrigger == MD2->ATTACK)
-	{
-
-			MD2->dirAngleY += 25;
-			MD2->dirAngleZ -= 25;
-	}
     MD2->actionTrigger = MD2->STAND;
 }
 
@@ -235,6 +221,10 @@ void _KbMs::keyUp(_Camera* cam)
 	cam->mov = vec3{0,0,0};
 }
 
+bool _KbMs::pausePress()
+{
+return(wParam == VK_SPACE);
+}
 
 
 /******************************************************************/
@@ -322,6 +312,7 @@ void _KbMs::mouseMove(_ModelLoaderMD2* gun, double x, double y)
 {
 	gun->dirAngleZ -= (x-prev_MouseX)/3.0f;
 	gun->dirAngleY += (y-prev_MouseY)/3.0f;
+//	cout << gun->dirAngleY << endl;
 
 	if(gun->dirAngleY > 60.0f) gun->dirAngleY = 60.0f;
 	if(gun->dirAngleY < 10.0f) gun->dirAngleY = 10.0f;
@@ -332,9 +323,74 @@ void _KbMs::mouseMove(_ModelLoaderMD2* gun, double x, double y)
 void _KbMs::mouseEventDown(_Menu* menu, double x, double y)
 {
     cout <<x<<" "<<y<<endl;
-    if(menu->menuActive&&x>-.7511&&x<.8769&&y>-.5135&&y<.6743){
+    if(x>-.7511&&x<.8769){
+    if(y>-.5135&&y<.6743){ //start button
         menu->menuActive=false;
-        cout <<"done";
+        cout<<"play";
     }
+    else if(y>-.4&&y<-2.19065){ //help button
+        cout<<"help";
+    }
+    else if(y<.508497&&y>-.753817){ //exit button
+    exit(0);
+    }
+    }
+/*
+-0.244544 0.137411
+-0.244544 0.137411
+0.278703 -0.103252
+0.278703 -0.103252
+-0.242992 -0.182438
+-0.242992 -0.182438
+0.274045 -0.429311
+0.274045 -0.429311
+0.274045 -0.429311
+-0.233676 -0.508497
+-0.233676 -0.508497
+-0.233676 -0.508497
+0.278703 -0.753817
+0.278703 -0.753817
+0.278703 -0.753817
+*/
+}
+
+
+bool _KbMs::mouseEventDownPause(_Menu* menu,double x, double y)
+{
+    cout <<x<<" "<<y<<endl;
+    if(y>-.5737&&y<-.288019)
+    if(x>-.4634&&x<-.2165){
+        menu->menuActive=false;
+        cout<<"resume";
+    }
+    else if(x>-.1249&&x<.1327){
+        cout <<"help";
+
+    }
+    else if(x>.2259&&x<.4805){
+        menu->menuActive=false;
+        return true;
+    }
+    return false;
+    /*
+    -0.463469 -0.298887
+-0.463469 -0.298887
+-0.463469 -0.298887
+-0.216596 -0.573708
+-0.218149 -0.573708
+-0.218149 -0.573708
+-0.124989 -0.30044
+-0.124989 -0.30044
+-0.124989 -0.30044
+0.132753 -0.589235
+0.132753 -0.589235
+0.132753 -0.589235
+0.225912 -0.288019
+0.225912 -0.288019
+0.225912 -0.288019
+0.480549 -0.570603
+0.480549 -0.570603
+0.480549 -0.570603
+    */
 }
 

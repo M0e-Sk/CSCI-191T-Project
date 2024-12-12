@@ -46,9 +46,10 @@ void _Boss::Actions(int* plHealth)
 	for(int i = 0; i < 30; i++)
 	{
 		b[i].drawBullet();
-		if(col->isCubicCollision(plPos, b[i].pos, 0.5f, 0.1f, 1.0f, 0.1f, 0.5f, 0.1f) && b[i].live)
+		if(col->isCubicCollision(plPos, b[i].pos, 1.5f, 0.3f, 1.5f, 0.3f, 1.5f, 0.3f) && b[i].live)
 		{
-			plHealth--;
+			(*plHealth)--;
+			b[i].actionTrigger == b[i].DEAD;
 		}
 		b[i].bulletAction();
 	}
@@ -106,7 +107,6 @@ void _Boss::Actions(int* plHealth)
 		w->StartFrame = 95;
 		w->EndFrame = 111;
 		health > 50 ? attackCnt = 3 : health > 20 ? attackCnt = 4 : attackCnt = 5;
-		cout << stunCnt << endl;
 		if(model->currFrame == 110)
 		{
 			behavior = AGGRESSIVE;

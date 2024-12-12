@@ -280,7 +280,7 @@
 	<time.h>
 	<math.h>
 
-1733951517 d:\csci191t\csci-191t-project\midtermbasecode\include\_scene.h
+1733962499 d:\csci191t\csci-191t-project\midtermbasecode\include\_scene.h
 	<_Common.h>
 
 1729120779 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_2dplayer.cpp
@@ -319,10 +319,10 @@
 1733923324 d:\csci191t\csci-191t-project\midtermbasecode\include\_collision.h
 	<_Common.h>
 
-1733923395 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_kbms.cpp
+1733964037 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_kbms.cpp
 	"_KbMs.h"
 
-1733922209 d:\csci191t\csci-191t-project\midtermbasecode\include\_kbms.h
+1733963870 d:\csci191t\csci-191t-project\midtermbasecode\include\_kbms.h
 	<_Common.h>
 	<_Models.h>
 	<_parallax.h>
@@ -387,7 +387,7 @@
 1727307435 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_timer.cpp
 	"_Timer.h"
 
-1733959121 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_scene.cpp
+1733964120 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_scene.cpp
 	"_Scene.h"
 	<_lightSetup.h>
 	<_kbMs.h>
@@ -404,6 +404,7 @@
 	<_Blitzer.h>
 	<_Boss.h>
 	<_Menu.h>
+	<_Sounds.h>
 
 1733953040 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_enemy.cpp
 	"_Enemy.h"
@@ -430,23 +431,128 @@
 
 1733803726 d:\csci191t\csci-191t-project\midtermbasecode\include\temp.h
 
-1733957584 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_blitzer.cpp
+1733962611 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_blitzer.cpp
 	"_Blitzer.h"
 
 1733953030 d:\csci191t\csci-191t-project\midtermbasecode\include\_blitzer.h
 	<_Enemy.h>
 
-1733922209 d:\csci191t\csci-191t-project\midtermbasecode\include\_menu.h
+1733963321 d:\csci191t\csci-191t-project\midtermbasecode\include\_menu.h
 	<_Common.h>
+	<_Camera.h>
 	<_TextureLoader.h>
 
-1733958145 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_menu.cpp
+1733963323 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_menu.cpp
 	"_Menu.h"
 
-1733958889 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_boss.cpp
+1733963929 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_boss.cpp
 	"_Boss.h"
 
 1733956967 d:\csci191t\csci-191t-project\midtermbasecode\include\_boss.h
 	<_Enemy.h>
 	<_Bullets.h>
+
+1733960925 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_sounds.cpp
+	"_Sounds.h"
+
+1733960896 d:\csci191t\csci-191t-project\midtermbasecode\include\_sounds.h
+	"_Common.h"
+	<SNDS/irrKlang.h>
+
+1710973395 d:\csci191t\common\include\snds\irrklang.h
+	"ik_irrKlangTypes.h"
+	"ik_vec3d.h"
+	"ik_IRefCounted.h"
+	"ik_IVirtualRefCounted.h"
+	"ik_ESoundOutputDrivers.h"
+	"ik_ESoundEngineOptions.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+	"ik_ISoundEngine.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_IAudioStream.h"
+	"ik_IAudioStreamLoader.h"
+	"ik_ISoundEffectControl.h"
+	"ik_ISoundStopEventReceiver.h"
+	"ik_IFileFactory.h"
+	"ik_IFileReader.h"
+	"ik_ISoundDeviceList.h"
+	"ik_IAudioRecorder.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1710973393 d:\csci191t\common\include\snds\ik_irrklangtypes.h
+	<wchar.h>
+
+1710973395 d:\csci191t\common\include\snds\ik_vec3d.h
+	<math.h>
+	"ik_irrKlangTypes.h"
+
+1710973393 d:\csci191t\common\include\snds\ik_irefcounted.h
+	"ik_irrKlangTypes.h"
+
+1710973394 d:\csci191t\common\include\snds\ik_ivirtualrefcounted.h
+	"ik_irrKlangTypes.h"
+
+1710973395 d:\csci191t\common\include\snds\ik_esoundoutputdrivers.h
+
+1710973395 d:\csci191t\common\include\snds\ik_esoundengineoptions.h
+
+1710973393 d:\csci191t\common\include\snds\ik_estreammodes.h
+
+1710973394 d:\csci191t\common\include\snds\ik_saudiostreamformat.h
+	"ik_IRefCounted.h"
+
+1710973394 d:\csci191t\common\include\snds\ik_isoundengine.h
+	"ik_IRefCounted.h"
+	"ik_vec3d.h"
+	"ik_ISoundSource.h"
+	"ik_ISound.h"
+	"ik_EStreamModes.h"
+	"ik_IFileFactory.h"
+	"ik_ISoundMixedOutputReceiver.h"
+
+1710973394 d:\csci191t\common\include\snds\ik_isoundsource.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+	"ik_EStreamModes.h"
+	"ik_SAudioStreamFormat.h"
+
+1710973394 d:\csci191t\common\include\snds\ik_isound.h
+	"ik_IVirtualRefCounted.h"
+	"ik_ISoundEffectControl.h"
+	"ik_vec3d.h"
+
+1710973394 d:\csci191t\common\include\snds\ik_isoundeffectcontrol.h
+	"ik_IVirtualRefCounted.h"
+	"ik_vec3d.h"
+
+1710973393 d:\csci191t\common\include\snds\ik_ifilefactory.h
+	"ik_IRefCounted.h"
+
+1710973394 d:\csci191t\common\include\snds\ik_isoundmixedoutputreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1710973393 d:\csci191t\common\include\snds\ik_iaudiostream.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1710973393 d:\csci191t\common\include\snds\ik_iaudiostreamloader.h
+	"ik_IRefCounted.h"
+	"ik_IFileReader.h"
+
+1710973393 d:\csci191t\common\include\snds\ik_ifilereader.h
+	"ik_IRefCounted.h"
+
+1710973394 d:\csci191t\common\include\snds\ik_isoundstopeventreceiver.h
+	"ik_IRefCounted.h"
+	"ik_SAudioStreamFormat.h"
+
+1710973394 d:\csci191t\common\include\snds\ik_isounddevicelist.h
+	"ik_IRefCounted.h"
+
+1710973393 d:\csci191t\common\include\snds\ik_iaudiorecorder.h
+	"ik_IRefCounted.h"
+	"ik_ISoundSource.h"
 

@@ -14,6 +14,7 @@
 #include<_Blitzer.h>
 #include<_Boss.h>
 #include<_Menu.h>
+#include<_Sounds.h>
 
 _lightSetup *myLight = new _lightSetup();
 _KbMs *KbMs = new _KbMs();
@@ -32,8 +33,10 @@ _Collision *col = new _Collision();
 _Enemy* e[5];
 _Menu *mainMenu = new _Menu();
 _Menu *pauseMenu = new _Menu();
+_Sounds *snds = new _Sounds();
 
 int maxEnemies;
+int playerHealth = 10;
 
 _Scene::_Scene()
 {
@@ -77,10 +80,13 @@ GLint _Scene::initGL()
 	gun->dirAngleY = 35.0f;
 	gun->scale = 0.08f;
 	gun->actionTrigger = gun->IDLE;
-
-	maxEnemies = 3;
     mainMenu->initMenu("images/startMenu.png");
-    //pauseMenu->initMenu("images/");
+    mainMenu->menuActive = true;
+    pauseMenu->initMenu("images/pauseMenu.jpg");
+    pauseMenu->menuActive = false;
+
+    snds->initSounds();
+	snds->playMusic("sounds/Luigi Theme.mp3");
     return true;
 }
 
@@ -114,6 +120,7 @@ GLint _Scene::loadLevel1()
 
 GLint _Scene::loadLevel2()
 {
+	snds->stopSounds();
 	asky = sky2;
 	aplx = plx2;
 	cam->camInit();
@@ -155,11 +162,13 @@ GLint _Scene::loadLevel2()
 	gun->dirAngleY = 35.0f;
 	gun->actionTrigger = gun->IDLE;
 	currLevel = 2;
+	snds->playMusic("sounds/Theme2.mp3");
 	return true;
 }
 
 GLint _Scene::loadLevel3()
 {
+	snds->stopSounds();
 	asky = sky3;
 	aplx = plx3;
 	for(int i = 0; i < maxEnemies; i++)
@@ -175,6 +184,7 @@ GLint _Scene::loadLevel3()
 	gun->dirAngleY = 35.0f;
 	gun->actionTrigger = gun->IDLE;
 	currLevel = 3;
+	snds->playMusic("sounds/Theme3.mp3");
 	return true;
 }
 
@@ -192,17 +202,22 @@ GLint _Scene::drawScene()
 	last_time = curent_time;
 	curent_time = (double)glutGet (GLUT_ELAPSED_TIME) / 1000.0;
 
-    cam->setUpCam();
     if(mainMenu->menuActive) //menu draw
     {
         ShowCursor(TRUE);
-        mainMenu->drawMenu();
+        mainMenu->drawMenu(screenWidth, screenHeight, cam);
     }
     else{//levels draw
-			if(pauseBit)
+			if(pauseMenu->menuActive)
 			{
-
-			}else {
+				ShowCursor(TRUE);
+				pauseMenu->drawMenu(screenWidth, screenHeight, cam);
+			}else{
+    cam->setUpCam();
+	if(playerHealth <= 0)
+	{
+		cam->upVec = cam->right;
+	}
     ShowCursor(FALSE);
     glPushMatrix();
     glPopMatrix();
@@ -283,6 +298,8 @@ GLint _Scene::drawScene()
 			pauseBit = true;
 			cam->camInit();
 			glDisable(GL_LIGHTING);
+			snds->stopSounds();
+			snds->playMusic("sounds/Luigi Theme.mp3");
 	  	}
 	  }
 
@@ -348,6 +365,10 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			gun->dirAngleZ -= 25;
 		 }
          gun->actionTrigger = gun->RUN;
+         if(KbMs->pausePress())
+		 {
+		 	pauseMenu->menuActive = !pauseMenu->menuActive;
+		 }
          break;
 
     case WM_KEYUP:
@@ -373,9 +394,13 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		 }
 
          mouseMapping(LOWORD(lParam),HIWORD(lParam));
+         cout << screenWidth << " " << screenHeight << endl;
          if(mainMenu->menuActive){
           KbMs->mouseEventDown(mainMenu,mouseX,mouseY);
           if(!mainMenu->menuActive) loadLevel1();
+         }
+         if(pauseMenu->menuActive) {
+			mainMenu->menuActive = KbMs->mouseEventDownPause(pauseMenu, mouseX, mouseY);
          }
          KbMs->mouseEventDown(mouseX,mouseY);
 

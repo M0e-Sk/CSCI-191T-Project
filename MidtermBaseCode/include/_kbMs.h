@@ -26,6 +26,7 @@ class _KbMs
         void keyPress(_Camera*);
         void keyPress(_2DPlayer*);
         void keyPress(_ModelLoaderMD2*);
+        bool pausePress();
         void moveBck(_parallax*,float);
         void keyUp();
         void keyUp(_2DPlayer*);
@@ -34,6 +35,7 @@ class _KbMs
 
         void mouseEventDown(double, double);
         void mouseEventDown(_Menu*,double, double);
+        bool mouseEventDownPause(_Menu*,double,double);
         void mouseEventUp();
 
         void mouseWheel(_Models*,double);

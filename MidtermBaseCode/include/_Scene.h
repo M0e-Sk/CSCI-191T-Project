@@ -30,7 +30,7 @@ class _Scene
       int curBullet = 0;
       int Score;
       int currLevel;
-      int playerHealth = 10;
+      //int* playerHealth;
 
       bool menuBit = true;
       bool pauseBit = false;

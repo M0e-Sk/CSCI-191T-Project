@@ -1,6 +1,7 @@
 #ifndef _MENU_H
 #define _MENU_H
 #include <_Common.h>
+#include<_Camera.h>
 #include<_TextureLoader.h>
 
 class _Menu
@@ -12,10 +13,9 @@ class _Menu
         _TextureLoader* mainMenu = new _TextureLoader();
 
         void initMenu(char*);
-        void drawMenu();
-        vec3 verts[4];
+        void drawMenu(float width, float height, _Camera*);
 
-        bool menuActive=true;
+        bool menuActive=false;
 
     protected:
 
