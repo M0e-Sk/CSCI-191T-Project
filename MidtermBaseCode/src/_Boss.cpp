@@ -50,6 +50,14 @@ void _Boss::Actions(int* plHealth)
 		{
 			(*plHealth)--;
 			b[i].actionTrigger == b[i].DEAD;
+			if(*plHealth > 0)
+			{
+				snds->playSound("sounds/jump1.wav");
+			}
+			else
+			{
+				snds->playSound("sounds/Death1.wav");
+			}
 		}
 		b[i].bulletAction();
 	}

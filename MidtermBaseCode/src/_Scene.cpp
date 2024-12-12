@@ -109,6 +109,7 @@ GLint _Scene::loadLevel1()
 	e[i]->model->dirAngleZ = acos(e[i]->dir.dot(vec3{1.0f,0.0f,0.0f})) * (180.0f/PI);
 	if(e[i]->dir.z > 0.0f) e[i]->model->dirAngleZ = 360 - e[i]->model->dirAngleZ;
 	e[i]->plPos = cam->eye;
+	e[i]->snds = snds;
 	}
 	gun->pos.y = cam->eye.y - 1.0f;
 	gun->dirAngleZ = 75.0f;
@@ -142,6 +143,7 @@ GLint _Scene::loadLevel2()
 		e[i]->model->dirAngleZ = acos(e[i]->dir.dot(vec3{1.0f,0.0f,0.0f})) * (180.0f/PI);
 		if(e[i]->dir.z > 0.0f) e[i]->model->dirAngleZ = 360 - e[i]->model->dirAngleZ;
 		e[i]->plPos = cam->eye;
+		e[i]->snds = snds;
 	}
 	for(int i = 4; i < maxEnemies; i++)
 	{
@@ -156,6 +158,7 @@ GLint _Scene::loadLevel2()
 		e[i]->des = cam->eye - e[i]->dir;
 		e[i]->model->dirAngleZ = acos(e[i]->dir.dot(vec3{1.0f,0.0f,0.0f})) * (180.0f/PI);
 		if(e[i]->dir.z > 0.0f) e[i]->model->dirAngleZ = 360 - e[i]->model->dirAngleZ;
+		e[i]->snds = snds;
 	}
 	gun->pos.y = cam->eye.y - 1.0f;
 	gun->dirAngleZ = 75.0f;
@@ -179,6 +182,7 @@ GLint _Scene::loadLevel3()
 	cam->camInit();
 	e[0] = new _Boss();
 	e[0]->init("models/doomunls/tris.md2", "models/doomunls/red.jpg", vec3{0.0f, 3.0f, -30.0f});
+	e[0]->snds = snds;
 	gun->pos.y = cam->eye.y - 1.0f;
 	gun->dirAngleZ = 75.0f;
 	gun->dirAngleY = 35.0f;
@@ -214,9 +218,10 @@ GLint _Scene::drawScene()
 				pauseMenu->drawMenu(screenWidth, screenHeight, cam);
 			}else{
     cam->setUpCam();
-	if(playerHealth <= 0)
+    if(playerHealth <= 0)
 	{
-		cam->upVec = cam->right;
+		cam->eye = cam->eye - vec3{0.0f,0.1f,0.0f};
+		if(cam->eye.y < -1.0f) cam->eye.y = -1.0f;
 	}
     ShowCursor(FALSE);
     glPushMatrix();
@@ -242,6 +247,7 @@ GLint _Scene::drawScene()
 				if(e[j]->health <= 0)
 				{
 					e[j]->behavior = e[j]->DYING;
+					snds->playSound("sounds/DeathVoice.wav");
 				}
 				else {
 					if(e[j]->behavior == e[j]->TAUNT)
@@ -251,6 +257,7 @@ GLint _Scene::drawScene()
 					e[j]->behavior = e[j]->HURT;
 					e[j]->dir = (e[j]->model->pos - e[j]->plPos).norm();
 					}
+					snds->playSound("sounds/GruntVoice01.wav");
 				}
 				b[i].actionTrigger = b[i].DEAD;
 				}
@@ -268,7 +275,8 @@ GLint _Scene::drawScene()
       for(int i = 0; i < maxEnemies; i++) {
       glPushMatrix();
       e[i]->plPos = cam->eye;
-      e[i]->Actions(&playerHealth);
+      if(playerHealth > 0)
+		e[i]->Actions(&playerHealth);
       e[i]->Draw(curent_time, last_time);
       glPopMatrix();
       }
@@ -311,6 +319,9 @@ GLint _Scene::drawScene()
 GLvoid _Scene::resizeScene(GLsizei width, GLsizei height)
 {
     GLfloat aspectRatio = (GLfloat)width/height;
+
+    KbMs->screenWidth = width;
+    KbMs->screenHeight = height;
 
     glViewport(0,0,width,height);
     glMatrixMode(GL_PROJECTION);
@@ -358,6 +369,7 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
          //KbMs->moveBck(plx,0.0005);
          //KbMs->keyPress(sky);
          //KbMs->keyPress(sky2);
+         if(playerHealth > 0) {
          KbMs->keyPress(cam);
          if(gun->actionTrigger == gun->ATTACK)
 		 {
@@ -365,6 +377,14 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			gun->dirAngleZ -= 25;
 		 }
          gun->actionTrigger = gun->RUN;
+         }
+         else {
+			mainMenu->menuActive = true;
+			ShowCursor(TRUE);
+			snds->stopSounds();
+			snds->playMusic("sounds/Luigi Theme.mp3");
+			playerHealth = 10;
+         }
          if(KbMs->pausePress())
 		 {
 		 	pauseMenu->menuActive = !pauseMenu->menuActive;
@@ -386,29 +406,40 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     case WM_LBUTTONDOWN:
          KbMs->wParam = wParam;
 
+         if(playerHealth > 0)
+		 {
          if(gun->actionTrigger != gun->ATTACK)
 		 {
          gun->actionTrigger = gun->ATTACK;
          gun->dirAngleY -= 25;
          gun->dirAngleZ += 25;
+		 snds->playSound("sounds/Shot.wav");
+		 }
+		 b[curBullet].actionTrigger = b[curBullet].SHOOT;
+		 b[curBullet].live = true;
+		 b[curBullet].pos = cam->eye;
+		 b[curBullet].des = cam->dir;
+		 curBullet = (curBullet + 1) % 20;
+		 }
+		 else{
+			mainMenu->menuActive = true;
+			ShowCursor(TRUE);
+			snds->stopSounds();
+			snds->playMusic("sounds/Luigi Theme.mp3");
+			playerHealth = 10;
 		 }
 
          mouseMapping(LOWORD(lParam),HIWORD(lParam));
-         cout << screenWidth << " " << screenHeight << endl;
+         //cout << screenWidth << " " << screenHeight << endl;
          if(mainMenu->menuActive){
-          KbMs->mouseEventDown(mainMenu,mouseX,mouseY);
+          KbMs->mouseEventDown(mainMenu,(double) LOWORD(lParam), (double) HIWORD(lParam));
           if(!mainMenu->menuActive) loadLevel1();
          }
          if(pauseMenu->menuActive) {
-			mainMenu->menuActive = KbMs->mouseEventDownPause(pauseMenu, mouseX, mouseY);
+			mainMenu->menuActive = KbMs->mouseEventDownPause(pauseMenu, (double) LOWORD(lParam), (double) HIWORD(lParam));
          }
          KbMs->mouseEventDown(mouseX,mouseY);
 
-		b[curBullet].actionTrigger = b[curBullet].SHOOT;
-		b[curBullet].live = true;
-		b[curBullet].pos = cam->eye;
-		b[curBullet].des = cam->dir;
-		curBullet = (curBullet + 1) % 20;
 
          break;
 
@@ -425,6 +456,7 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
     case WM_MOUSEMOVE:
          KbMs->wParam = wParam;
+         //cout << (double) LOWORD(lParam) << " " << (double) HIWORD(lParam) << endl;
          if(!mainMenu->menuActive){//only move camera if menu isn't active
          if(KbMs->firstMouse)
 		 {
@@ -436,8 +468,10 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		 }
 		 else
 		 {
+		 	if(!pauseMenu->menuActive && playerHealth > 0){
 			KbMs->mouseMove(cam, (double) LOWORD(lParam), (double) HIWORD(lParam));
 			KbMs->mouseMove(gun, (double) LOWORD(lParam), (double) HIWORD(lParam));
+			}
 		 	KbMs->prev_MouseX = (double) LOWORD(lParam);
 		 	KbMs->prev_MouseY = (double) HIWORD(lParam);
 		 	KbMs->prev_MouseX_Cam = (double) LOWORD(lParam);

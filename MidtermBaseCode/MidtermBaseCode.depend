@@ -319,10 +319,10 @@
 1733923324 d:\csci191t\csci-191t-project\midtermbasecode\include\_collision.h
 	<_Common.h>
 
-1733964037 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_kbms.cpp
+1733972673 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_kbms.cpp
 	"_KbMs.h"
 
-1733963870 d:\csci191t\csci-191t-project\midtermbasecode\include\_kbms.h
+1733967327 d:\csci191t\csci-191t-project\midtermbasecode\include\_kbms.h
 	<_Common.h>
 	<_Models.h>
 	<_parallax.h>
@@ -387,7 +387,7 @@
 1727307435 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_timer.cpp
 	"_Timer.h"
 
-1733964120 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_scene.cpp
+1733974666 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_scene.cpp
 	"_Scene.h"
 	<_lightSetup.h>
 	<_kbMs.h>
@@ -409,11 +409,12 @@
 1733953040 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_enemy.cpp
 	"_Enemy.h"
 
-1733957518 d:\csci191t\csci-191t-project\midtermbasecode\include\_enemy.h
+1733974022 d:\csci191t\csci-191t-project\midtermbasecode\include\_enemy.h
 	"_Common.h"
 	"_ModelLoaderMD2.h"
 	"_Timer.h"
 	"_Collision.h"
+	"_Sounds.h"
 
 1733958176 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_runner.cpp
 	"_Runner.h"
@@ -431,7 +432,7 @@
 
 1733803726 d:\csci191t\csci-191t-project\midtermbasecode\include\temp.h
 
-1733962611 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_blitzer.cpp
+1733987947 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_blitzer.cpp
 	"_Blitzer.h"
 
 1733953030 d:\csci191t\csci-191t-project\midtermbasecode\include\_blitzer.h
@@ -445,7 +446,7 @@
 1733963323 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_menu.cpp
 	"_Menu.h"
 
-1733963929 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_boss.cpp
+1733987884 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_boss.cpp
 	"_Boss.h"
 
 1733956967 d:\csci191t\csci-191t-project\midtermbasecode\include\_boss.h

@@ -5,6 +5,7 @@
 #include "_ModelLoaderMD2.h"
 #include "_Timer.h"
 #include "_Collision.h"
+#include "_Sounds.h"
 
 class _Enemy
 {
@@ -34,6 +35,8 @@ class _Enemy
 		vec3 plPos;
 
 		_Collision *col = new _Collision();
+
+		_Sounds *snds;
 
 
 	protected:

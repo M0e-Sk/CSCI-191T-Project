@@ -50,6 +50,14 @@ void _Blitzer::Actions(int* plHealth)
 				if(col->isCubicCollision(model->pos + dir, plPos, 0.5f, 0.5, 0.5f, 0.5f, 0.5f, 0.5f))
 				{
 					(*plHealth)--;
+					if(*plHealth > 0)
+					{
+						snds->playSound("sounds/jump1.wav");
+					}
+					else
+					{
+						snds->playSound("sounds/Death1.wav");
+					}
 				}
 			}
 			break;

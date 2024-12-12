@@ -322,16 +322,16 @@ void _KbMs::mouseMove(_ModelLoaderMD2* gun, double x, double y)
 
 void _KbMs::mouseEventDown(_Menu* menu, double x, double y)
 {
-    cout <<x<<" "<<y<<endl;
-    if(x>-.7511&&x<.8769){
-    if(y>-.5135&&y<.6743){ //start button
+    //cout <<x<<" "<<y<<endl;
+    if(x>0.4*screenWidth&&x<0.6*screenWidth){
+    if(y>0.4*screenHeight&&y<0.55*screenHeight){ //start button
         menu->menuActive=false;
         cout<<"play";
     }
-    else if(y>-.4&&y<-2.19065){ //help button
+    else if(y>0.6*screenHeight&&y<0.76*screenHeight){ //help button
         cout<<"help";
     }
-    else if(y<.508497&&y>-.753817){ //exit button
+    else if(y>0.8*screenHeight&&y<0.95*screenHeight){ //exit button
     exit(0);
     }
     }
@@ -358,16 +358,16 @@ void _KbMs::mouseEventDown(_Menu* menu, double x, double y)
 bool _KbMs::mouseEventDownPause(_Menu* menu,double x, double y)
 {
     cout <<x<<" "<<y<<endl;
-    if(y>-.5737&&y<-.288019)
-    if(x>-.4634&&x<-.2165){
+    if(y>0.65*screenHeight&&y<0.85*screenHeight)
+    if(x>0.31*screenWidth&&x<0.42*screenWidth){
         menu->menuActive=false;
         cout<<"resume";
     }
-    else if(x>-.1249&&x<.1327){
+    else if(x>0.45*screenWidth&&x<0.56*screenWidth){
         cout <<"help";
 
     }
-    else if(x>.2259&&x<.4805){
+    else if(x>0.58*screenWidth&&x<0.69*screenWidth){
         menu->menuActive=false;
         return true;
     }

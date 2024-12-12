@@ -56,6 +56,9 @@ class _KbMs
         bool mouseRotation;
         bool firstMouse = true;
 
+        float screenWidth;
+        float screenHeight;
+
         _Timer *myTime = new _Timer();
 
     protected:
