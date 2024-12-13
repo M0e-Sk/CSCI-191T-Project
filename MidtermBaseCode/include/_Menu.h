@@ -15,8 +15,6 @@ class _Menu
         void initMenu(char*);
         void drawMenu(float width, float height, _Camera*);
 
-        bool menuActive=false;
-
     protected:
 
     private:

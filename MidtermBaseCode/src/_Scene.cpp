@@ -33,6 +33,7 @@ _Collision *col = new _Collision();
 _Enemy* e[5];
 _Menu *mainMenu = new _Menu();
 _Menu *pauseMenu = new _Menu();
+_Menu *helpMenu = new _Menu();
 _Sounds *snds = new _Sounds();
 
 int maxEnemies;
@@ -81,9 +82,10 @@ GLint _Scene::initGL()
 	gun->scale = 0.08f;
 	gun->actionTrigger = gun->IDLE;
     mainMenu->initMenu("images/startMenu.png");
-    mainMenu->menuActive = true;
+
     pauseMenu->initMenu("images/pauseMenu.jpg");
-    pauseMenu->menuActive = false;
+    helpMenu->initMenu("images/Controls2.png");
+
 
     snds->initSounds();
 	snds->playMusic("sounds/Luigi Theme.mp3");
@@ -206,17 +208,25 @@ GLint _Scene::drawScene()
 	last_time = curent_time;
 	curent_time = (double)glutGet (GLUT_ELAPSED_TIME) / 1000.0;
 
-    if(mainMenu->menuActive) //menu draw
-    {
+	if(status!=HELP){
+        previousStatus=status;
+	}
+	switch(status){
+	    case MAIN:
+    //menu draw
         ShowCursor(TRUE);
         mainMenu->drawMenu(screenWidth, screenHeight, cam);
-    }
-    else{//levels draw
-			if(pauseMenu->menuActive)
-			{
+        break;
+        case HELP:
+            ShowCursor(TRUE);
+            helpMenu->drawMenu(screenWidth,screenHeight,cam);
+            break;
+        case PAUSE:
+			    \
 				ShowCursor(TRUE);
 				pauseMenu->drawMenu(screenWidth, screenHeight, cam);
-			}else{
+				break;
+        case PLAY:
     cam->setUpCam();
     if(playerHealth <= 0)
 	{
@@ -302,17 +312,17 @@ GLint _Scene::drawScene()
 			break;
 		case 3:
 			delete e[0];
-			mainMenu->menuActive = true;
-			pauseBit = true;
+			status=0;
+			ShowCursor(TRUE);
 			cam->camInit();
 			glDisable(GL_LIGHTING);
 			snds->stopSounds();
 			snds->playMusic("sounds/Luigi Theme.mp3");
 	  	}
 	  }
+	  break;
 
-    }//else statement ends
-    }
+	}//switch statement
     return true;
 }
 
@@ -379,15 +389,15 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
          gun->actionTrigger = gun->RUN;
          }
          else {
-			mainMenu->menuActive = true;
+			status=MAIN;
 			ShowCursor(TRUE);
 			snds->stopSounds();
 			snds->playMusic("sounds/Luigi Theme.mp3");
 			playerHealth = 10;
          }
-         if(KbMs->pausePress())
+         if(KbMs->pausePress()&&status==3)
 		 {
-		 	pauseMenu->menuActive = !pauseMenu->menuActive;
+		 	status=2;
 		 }
          break;
 
@@ -413,16 +423,19 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
          gun->actionTrigger = gun->ATTACK;
          gun->dirAngleY -= 25;
          gun->dirAngleZ += 25;
-		 snds->playSound("sounds/Shot.wav");
 		 }
+		 if(status == PLAY)
+		 {
+		 snds->playSound("sounds/Shot.wav");
 		 b[curBullet].actionTrigger = b[curBullet].SHOOT;
 		 b[curBullet].live = true;
 		 b[curBullet].pos = cam->eye;
 		 b[curBullet].des = cam->dir;
 		 curBullet = (curBullet + 1) % 20;
 		 }
+		 }
 		 else{
-			mainMenu->menuActive = true;
+			status=0;
 			ShowCursor(TRUE);
 			snds->stopSounds();
 			snds->playMusic("sounds/Luigi Theme.mp3");
@@ -431,13 +444,17 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
          mouseMapping(LOWORD(lParam),HIWORD(lParam));
          //cout << screenWidth << " " << screenHeight << endl;
-         if(mainMenu->menuActive){
-          KbMs->mouseEventDown(mainMenu,(double) LOWORD(lParam), (double) HIWORD(lParam));
-          if(!mainMenu->menuActive) loadLevel1();
+         if(status==MAIN){
+          KbMs->mouseEventDown(status,(double) LOWORD(lParam), (double) HIWORD(lParam));
+          if(status==PLAY) loadLevel1();
          }
-         if(pauseMenu->menuActive) {
-			mainMenu->menuActive = KbMs->mouseEventDownPause(pauseMenu, (double) LOWORD(lParam), (double) HIWORD(lParam));
+         if(status==PAUSE) {
+			KbMs->mouseEventDownPause(status, (double) LOWORD(lParam), (double) HIWORD(lParam));
          }
+         if(KbMs->mouseEventDownHelp(status, (double) LOWORD(lParam), (double) HIWORD(lParam))){
+         status=previousStatus;
+         }
+
          KbMs->mouseEventDown(mouseX,mouseY);
 
 
@@ -457,7 +474,7 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
     case WM_MOUSEMOVE:
          KbMs->wParam = wParam;
          //cout << (double) LOWORD(lParam) << " " << (double) HIWORD(lParam) << endl;
-         if(!mainMenu->menuActive){//only move camera if menu isn't active
+         if(!status==MAIN){//only move camera if menu isn't active
          if(KbMs->firstMouse)
 		 {
 		 	KbMs->prev_MouseX = (double) LOWORD(lParam);
@@ -468,7 +485,7 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		 }
 		 else
 		 {
-		 	if(!pauseMenu->menuActive && playerHealth > 0){
+		 	if(status==PLAY && playerHealth > 0){
 			KbMs->mouseMove(cam, (double) LOWORD(lParam), (double) HIWORD(lParam));
 			KbMs->mouseMove(gun, (double) LOWORD(lParam), (double) HIWORD(lParam));
 			}

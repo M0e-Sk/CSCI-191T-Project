@@ -22,10 +22,10 @@ void _Menu::drawMenu(float width, float height,_Camera* cam)
     mainMenu->bindTexture();
     glDisable(GL_LIGHTING);
     glBegin(GL_QUADS);
-     glTexCoord2f(0,0);glVertex3f((-width/height)+cam->eye.x,cam->eye.y+1,cam->eye.z-2);
-     glTexCoord2f(1,0);glVertex3f(width/height+cam->eye.x,cam->eye.y+1,cam->eye.z-2);
-     glTexCoord2f(1,1);glVertex3f(width/height+cam->eye.x,cam->eye.y-1,cam->eye.z-2);
-     glTexCoord2f(0,1);glVertex3f(-width/height+cam->eye.x,cam->eye.y-1.0,cam->eye.z-2);
+     glTexCoord2f(0,0);glVertex3f((-width/height)+cam->eye.x,cam->eye.y+1,cam->eye.z-2.3);
+     glTexCoord2f(1,0);glVertex3f(width/height+cam->eye.x,cam->eye.y+1,cam->eye.z-2.3);
+     glTexCoord2f(1,1);glVertex3f(width/height+cam->eye.x,cam->eye.y-1,cam->eye.z-2.3);
+     glTexCoord2f(0,1);glVertex3f(-width/height+cam->eye.x,cam->eye.y-1.0,cam->eye.z-2.3);
     glEnd();
     glEnable(GL_LIGHTING);
 }

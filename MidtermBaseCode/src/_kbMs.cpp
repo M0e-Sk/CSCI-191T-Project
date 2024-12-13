@@ -223,7 +223,7 @@ void _KbMs::keyUp(_Camera* cam)
 
 bool _KbMs::pausePress()
 {
-return(wParam == VK_SPACE);
+return(wParam == 0x50);
 }
 
 
@@ -320,77 +320,53 @@ void _KbMs::mouseMove(_ModelLoaderMD2* gun, double x, double y)
 	//prev_MouseX = x;
 }
 
-void _KbMs::mouseEventDown(_Menu* menu, double x, double y)
+void _KbMs::mouseEventDown(int& status, double x, double y)
 {
     //cout <<x<<" "<<y<<endl;
     if(x>0.4*screenWidth&&x<0.6*screenWidth){
     if(y>0.4*screenHeight&&y<0.55*screenHeight){ //start button
-        menu->menuActive=false;
+        status=3;//PLAY
         cout<<"play";
     }
     else if(y>0.6*screenHeight&&y<0.76*screenHeight){ //help button
+        status=1;//HELP
         cout<<"help";
     }
     else if(y>0.8*screenHeight&&y<0.95*screenHeight){ //exit button
     exit(0);
     }
     }
-/*
--0.244544 0.137411
--0.244544 0.137411
-0.278703 -0.103252
-0.278703 -0.103252
--0.242992 -0.182438
--0.242992 -0.182438
-0.274045 -0.429311
-0.274045 -0.429311
-0.274045 -0.429311
--0.233676 -0.508497
--0.233676 -0.508497
--0.233676 -0.508497
-0.278703 -0.753817
-0.278703 -0.753817
-0.278703 -0.753817
-*/
+
 }
 
 
-bool _KbMs::mouseEventDownPause(_Menu* menu,double x, double y)
+void _KbMs::mouseEventDownPause(int& status,double x, double y)
 {
-    cout <<x<<" "<<y<<endl;
+    //cout <<x<<" "<<y<<endl;
     if(y>0.65*screenHeight&&y<0.85*screenHeight)
     if(x>0.31*screenWidth&&x<0.42*screenWidth){
-        menu->menuActive=false;
-        cout<<"resume";
+        status=3;//PLAY
+        //cout<<"resume";
     }
     else if(x>0.45*screenWidth&&x<0.56*screenWidth){
-        cout <<"help";
+        status=1;//HELP
+        //cout <<"help";
 
     }
     else if(x>0.58*screenWidth&&x<0.69*screenWidth){
-        menu->menuActive=false;
-        return true;
+        status=0;//MAIN
+
     }
-    return false;
-    /*
-    -0.463469 -0.298887
--0.463469 -0.298887
--0.463469 -0.298887
--0.216596 -0.573708
--0.218149 -0.573708
--0.218149 -0.573708
--0.124989 -0.30044
--0.124989 -0.30044
--0.124989 -0.30044
-0.132753 -0.589235
-0.132753 -0.589235
-0.132753 -0.589235
-0.225912 -0.288019
-0.225912 -0.288019
-0.225912 -0.288019
-0.480549 -0.570603
-0.480549 -0.570603
-0.480549 -0.570603
-    */
+
 }
 
+bool _KbMs::mouseEventDownHelp(int&status,double x,double y)
+{
+    if(y>.86*screenHeight&&x>.89*screenWidth&&status==1){
+        return true;
+    }
+    else{
+        return false;
+    }
+    cout <<x<<' '<<y<<endl;
+}

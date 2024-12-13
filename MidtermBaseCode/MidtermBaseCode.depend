@@ -270,7 +270,7 @@
 	<_Common.h>
 	<_Scene.h>
 
-1733922213 d:\csci191t\csci-191t-project\midtermbasecode\include\_common.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_common.h
 	<string.h>
 	<stdlib.h>
 	<iostream>
@@ -280,49 +280,49 @@
 	<time.h>
 	<math.h>
 
-1733962499 d:\csci191t\csci-191t-project\midtermbasecode\include\_scene.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_scene.h
 	<_Common.h>
 
-1729120779 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_2dplayer.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_2dplayer.cpp
 	"_2DPlayer.h"
 
-1728517295 d:\csci191t\csci-191t-project\midtermbasecode\include\_2dplayer.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_2dplayer.h
 	<_Common.h>
 	<_TextureLoader.h>
 	<_Timer.h>
 
-1726703348 d:\csci191t\csci-191t-project\midtermbasecode\include\_textureloader.h
+1734063915 d:\csci191t\csci-191t-project\midtermbasecode\include\_textureloader.h
 	<_Common.h>
 	<SOIL.h>
 
-1727307435 d:\csci191t\csci-191t-project\midtermbasecode\include\_timer.h
+1734063915 d:\csci191t\csci-191t-project\midtermbasecode\include\_timer.h
 	<_Common.h>
 
-1733922214 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_bullets.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_bullets.cpp
 	"_Bullets.h"
 
-1731826891 d:\csci191t\csci-191t-project\midtermbasecode\include\_bullets.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_bullets.h
 	<_Common.h>
 	<_TextureLoader.h>
 	<_Timer.h>
 
-1733949333 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_camera.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_camera.cpp
 	"_Camera.h"
 
-1733635665 d:\csci191t\csci-191t-project\midtermbasecode\include\_camera.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_camera.h
 	<_Common.h>
 	<_Timer.h>
 
-1733923363 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_collision.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_collision.cpp
 	"_Collision.h"
 
-1733923324 d:\csci191t\csci-191t-project\midtermbasecode\include\_collision.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_collision.h
 	<_Common.h>
 
-1733972673 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_kbms.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_kbms.cpp
 	"_KbMs.h"
 
-1733967327 d:\csci191t\csci-191t-project\midtermbasecode\include\_kbms.h
+1734063915 d:\csci191t\csci-191t-project\midtermbasecode\include\_kbms.h
 	<_Common.h>
 	<_Models.h>
 	<_parallax.h>
@@ -344,11 +344,11 @@
 	<_TextureLoader.h>
 	<_Timer.h>
 
-1727738318 d:\csci191t\csci-191t-project\midtermbasecode\include\_skybox.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_skybox.h
 	<_Common.h>
 	<_TextureLoader.h>
 
-1727911432 d:\csci191t\csci-191t-project\midtermbasecode\include\_skybox2.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_skybox2.h
 	<_Common.h>
 	<_TextureLoader.h>
 	<_Timer.h>
@@ -358,33 +358,33 @@
 	<_TextureLoader.h>
 	"Anorms.h"
 
-1730770383 d:\csci191t\csci-191t-project\midtermbasecode\include\anorms.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\anorms.h
 
-1725927104 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_lightsetup.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_lightsetup.cpp
 	"_lightSetup.h"
 
 1725925308 d:\csci191t\csci-191t-project\midtermbasecode\include\_lightsetup.h
 	<_Common.h>
 
-1733957451 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_modelloadermd2.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_modelloadermd2.cpp
 	"_ModelLoaderMD2.h"
 
-1730333024 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_models.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_models.cpp
 	"_Models.h"
 
-1727307671 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_parallax.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_parallax.cpp
 	"_parallax.h"
 
-1727742507 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_skybox.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_skybox.cpp
 	"_SkyBox.h"
 
-1733948623 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_skybox2.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_skybox2.cpp
 	"_Skybox2.h"
 
-1727915650 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_textureloader.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_textureloader.cpp
 	"_TextureLoader.h"
 
-1727307435 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_timer.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_timer.cpp
 	"_Timer.h"
 
 1733974666 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_scene.cpp
@@ -406,7 +406,7 @@
 	<_Menu.h>
 	<_Sounds.h>
 
-1733953040 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_enemy.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_enemy.cpp
 	"_Enemy.h"
 
 1733974022 d:\csci191t\csci-191t-project\midtermbasecode\include\_enemy.h
@@ -416,47 +416,47 @@
 	"_Collision.h"
 	"_Sounds.h"
 
-1733958176 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_runner.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_runner.cpp
 	"_Runner.h"
 
 1733952941 d:\csci191t\csci-191t-project\midtermbasecode\include\_runner.h
 	<_Enemy.h>
 
-1731383571 source:d:\csci191t\csci-191t-project\midtermbasecode\src\t.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\t.cpp
 	"t.h"
 
-1731383616 d:\csci191t\csci-191t-project\midtermbasecode\include\t.h
+1734063915 d:\csci191t\csci-191t-project\midtermbasecode\include\t.h
 
-1733803726 source:d:\csci191t\csci-191t-project\midtermbasecode\src\temp.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\temp.cpp
 	"temp.h"
 
-1733803726 d:\csci191t\csci-191t-project\midtermbasecode\include\temp.h
+1734063915 d:\csci191t\csci-191t-project\midtermbasecode\include\temp.h
 
-1733987947 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_blitzer.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_blitzer.cpp
 	"_Blitzer.h"
 
-1733953030 d:\csci191t\csci-191t-project\midtermbasecode\include\_blitzer.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_blitzer.h
 	<_Enemy.h>
 
-1733963321 d:\csci191t\csci-191t-project\midtermbasecode\include\_menu.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_menu.h
 	<_Common.h>
 	<_Camera.h>
 	<_TextureLoader.h>
 
-1733963323 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_menu.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_menu.cpp
 	"_Menu.h"
 
-1733987884 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_boss.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_boss.cpp
 	"_Boss.h"
 
-1733956967 d:\csci191t\csci-191t-project\midtermbasecode\include\_boss.h
+1734063914 d:\csci191t\csci-191t-project\midtermbasecode\include\_boss.h
 	<_Enemy.h>
 	<_Bullets.h>
 
-1733960925 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_sounds.cpp
+1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_sounds.cpp
 	"_Sounds.h"
 
-1733960896 d:\csci191t\csci-191t-project\midtermbasecode\include\_sounds.h
+1734063915 d:\csci191t\csci-191t-project\midtermbasecode\include\_sounds.h
 	"_Common.h"
 	<SNDS/irrKlang.h>
 

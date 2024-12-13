@@ -23,6 +23,8 @@ class _Scene
 
       float  screenWidth, screenHeight;
 
+      enum{MAIN,HELP,PAUSE,PLAY};
+
       GLdouble mouseX;
       GLdouble mouseY;
       GLdouble mouseZ;
@@ -30,10 +32,10 @@ class _Scene
       int curBullet = 0;
       int Score;
       int currLevel;
+      int status;
+      int previousStatus;
       //int* playerHealth;
 
-      bool menuBit = true;
-      bool pauseBit = false;
     protected:
 
     private:

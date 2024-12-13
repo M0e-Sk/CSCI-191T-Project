@@ -34,8 +34,9 @@ class _KbMs
         void keyUp(_Camera*);
 
         void mouseEventDown(double, double);
-        void mouseEventDown(_Menu*,double, double);
-        bool mouseEventDownPause(_Menu*,double,double);
+        void mouseEventDown(int&,double, double);
+        void mouseEventDownPause(int&,double,double);
+        bool mouseEventDownHelp(int&,double,double);
         void mouseEventUp();
 
         void mouseWheel(_Models*,double);
