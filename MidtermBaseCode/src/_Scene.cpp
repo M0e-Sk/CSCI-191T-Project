@@ -31,6 +31,7 @@ _Bullets b[20];
 _ModelLoaderMD2 *gun = new _ModelLoaderMD2();
 _Collision *col = new _Collision();
 _Enemy* e[5];
+_Menu *landPage = new _Menu();
 _Menu *mainMenu = new _Menu();
 _Menu *pauseMenu = new _Menu();
 _Menu *helpMenu = new _Menu();
@@ -44,6 +45,7 @@ _Scene::_Scene()
     //ctor
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
+    status = LAND;
 }
 
 _Scene::~_Scene()
@@ -82,7 +84,7 @@ GLint _Scene::initGL()
 	gun->scale = 0.08f;
 	gun->actionTrigger = gun->IDLE;
     mainMenu->initMenu("images/startMenu.png");
-
+	landPage->initMenu("images/land.jpg");
     pauseMenu->initMenu("images/pauseMenu.jpg");
     helpMenu->initMenu("images/Controls2.png");
 
@@ -212,6 +214,10 @@ GLint _Scene::drawScene()
         previousStatus=status;
 	}
 	switch(status){
+		case LAND:
+			ShowCursor(TRUE);
+			landPage->drawMenu(screenWidth, screenHeight, cam);
+			break;
 	    case MAIN:
     //menu draw
         ShowCursor(TRUE);
@@ -442,6 +448,10 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 			playerHealth = 10;
 		 }
 
+		 if(status == LAND)
+		 {
+		 	status = MAIN;
+		 }
          mouseMapping(LOWORD(lParam),HIWORD(lParam));
          //cout << screenWidth << " " << screenHeight << endl;
          if(status==MAIN){
