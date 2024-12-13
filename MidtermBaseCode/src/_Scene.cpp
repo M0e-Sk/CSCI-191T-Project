@@ -39,6 +39,7 @@ _Sounds *snds = new _Sounds();
 
 int maxEnemies;
 int playerHealth = 10;
+bool startUP = true;
 
 _Scene::_Scene()
 {
@@ -88,9 +89,12 @@ GLint _Scene::initGL()
     pauseMenu->initMenu("images/pauseMenu.jpg");
     helpMenu->initMenu("images/Controls2.png");
 
-
-    snds->initSounds();
-	snds->playMusic("sounds/Luigi Theme.mp3");
+	if(startUP)
+	{
+		snds->initSounds();
+		snds->playMusic("sounds/Luigi Theme.mp3");
+		startUP = false;
+	}
     return true;
 }
 
@@ -385,6 +389,10 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
          //KbMs->moveBck(plx,0.0005);
          //KbMs->keyPress(sky);
          //KbMs->keyPress(sky2);
+         if(status == LAND)
+		 {
+		 	status = MAIN;
+		 }
          if(playerHealth > 0) {
          KbMs->keyPress(cam);
          if(gun->actionTrigger == gun->ATTACK)
@@ -471,6 +479,10 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
          break;
 
     case WM_RBUTTONDOWN:
+    	if(status == LAND)
+		{
+			status = MAIN;
+		}
          KbMs->wParam = wParam;
          KbMs->mouseEventDown(LOWORD(lParam),HIWORD(lParam));
          break;

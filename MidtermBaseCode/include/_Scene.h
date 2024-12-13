@@ -34,7 +34,6 @@ class _Scene
       int currLevel;
       int status;
       int previousStatus;
-      //int* playerHealth;
 
     protected:
 
