@@ -280,7 +280,7 @@
 	<time.h>
 	<math.h>
 
-1734067121 d:\csci191t\csci-191t-project\midtermbasecode\include\_scene.h
+1734141757 d:\csci191t\csci-191t-project\midtermbasecode\include\_scene.h
 	<_Common.h>
 
 1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_2dplayer.cpp
@@ -387,7 +387,7 @@
 1734063915 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_timer.cpp
 	"_Timer.h"
 
-1733974666 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_scene.cpp
+1734145681 source:d:\csci191t\csci-191t-project\midtermbasecode\src\_scene.cpp
 	"_Scene.h"
 	<_lightSetup.h>
 	<_kbMs.h>

@@ -35,6 +35,8 @@ _Menu *landPage = new _Menu();
 _Menu *mainMenu = new _Menu();
 _Menu *pauseMenu = new _Menu();
 _Menu *helpMenu = new _Menu();
+_Menu *gameOverMenu = new _Menu();
+_Menu *creditsMenu = new _Menu();
 _Sounds *snds = new _Sounds();
 
 int maxEnemies;
@@ -47,6 +49,7 @@ _Scene::_Scene()
     screenWidth = GetSystemMetrics(SM_CXSCREEN);
     screenHeight= GetSystemMetrics(SM_CYSCREEN);
     status = LAND;
+    srand(time(NULL));
 }
 
 _Scene::~_Scene()
@@ -88,6 +91,8 @@ GLint _Scene::initGL()
 	landPage->initMenu("images/land.jpg");
     pauseMenu->initMenu("images/pauseMenu.jpg");
     helpMenu->initMenu("images/Controls2.png");
+    gameOverMenu->initMenu("images/GameOver.png");
+    creditsMenu->initMenu("images/Credits_2.png");
 
 	if(startUP)
 	{
@@ -222,6 +227,14 @@ GLint _Scene::drawScene()
 			ShowCursor(TRUE);
 			landPage->drawMenu(screenWidth, screenHeight, cam);
 			break;
+		case GAMEOVER:
+			ShowCursor(TRUE);
+			gameOverMenu->drawMenu(screenWidth, screenHeight, cam);
+			break;
+		case CREDITS:
+			ShowCursor(TRUE);
+			creditsMenu->drawMenu(screenWidth, screenHeight, cam);
+			break;
 	    case MAIN:
     //menu draw
         ShowCursor(TRUE);
@@ -242,6 +255,12 @@ GLint _Scene::drawScene()
 	{
 		cam->eye = cam->eye - vec3{0.0f,0.1f,0.0f};
 		if(cam->eye.y < -1.0f) cam->eye.y = -1.0f;
+		if(!snds->engine->isCurrentlyPlaying("sounds/Death1.wav"))
+		{
+			snds->stopSounds();
+			snds->playMusic("sounds/Luigi theme.mp3");
+			status = GAMEOVER;
+		}
 	}
     ShowCursor(FALSE);
     glPushMatrix();
@@ -322,7 +341,7 @@ GLint _Scene::drawScene()
 			break;
 		case 3:
 			delete e[0];
-			status=0;
+			status=CREDITS;
 			ShowCursor(TRUE);
 			cam->camInit();
 			glDisable(GL_LIGHTING);
@@ -389,7 +408,7 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
          //KbMs->moveBck(plx,0.0005);
          //KbMs->keyPress(sky);
          //KbMs->keyPress(sky2);
-         if(status == LAND)
+         if(status == LAND || status == GAMEOVER || status == CREDITS)
 		 {
 		 	status = MAIN;
 		 }
@@ -447,13 +466,6 @@ int _Scene::winMsg(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		 b[curBullet].des = cam->dir;
 		 curBullet = (curBullet + 1) % 20;
 		 }
-		 }
-		 else{
-			status=0;
-			ShowCursor(TRUE);
-			snds->stopSounds();
-			snds->playMusic("sounds/Luigi Theme.mp3");
-			playerHealth = 10;
 		 }
 
 		 if(status == LAND)

@@ -23,7 +23,7 @@ class _Scene
 
       float  screenWidth, screenHeight;
 
-      enum{MAIN,HELP,PAUSE,PLAY,LAND};
+      enum{MAIN,HELP,PAUSE,PLAY,LAND,GAMEOVER,CREDITS};
 
       GLdouble mouseX;
       GLdouble mouseY;
